@@ -19,10 +19,13 @@
             android:id="@+id/backIBtn2_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_back_white"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:src="@drawable/ic_back_white" />
 
         <!--Icon-->
         <ImageView
@@ -136,9 +139,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/categoryTV1_ID"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:text="Upload"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
 </RelativeLayout>
