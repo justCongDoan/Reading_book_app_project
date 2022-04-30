@@ -58,4 +58,87 @@
 
     </RelativeLayout>
 
+    <!--Inputting title-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleTIL_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="225dp"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/titleET_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_edittext01"
+            android:drawableStart="@drawable/ic_picture_as_pdf_gray"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:hint="Enter book title..."
+            android:inputType="textPersonName|textCapWords"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray01"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Inputting description-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionTIL_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below="@id/titleTIL_ID"
+        android:layout_marginTop="5dp"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/descriptionET_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_edittext01"
+            android:drawableStart="@drawable/ic_picture_as_pdf_gray"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:hint="Enter description..."
+            android:inputType="textMultiLine|textCapSentences"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray01"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Picking up category from dialog-->
+    <TextView
+        android:id="@+id/categoryTV1_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionTIL_ID"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/shape_edittext01"
+        android:drawableStart="@drawable/ic_category_gray"
+        android:drawableEnd="@drawable/ic_arrow_down_gray"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:hint="Select category..."
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray01"
+        android:textSize="16sp" />
+
+    <!--Upload Pdf button-->
+    <Button
+        android:id="@+id/uploadBtn_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoryTV1_ID"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Upload"
+        android:textColor="@color/white"/>
+
 </RelativeLayout>
