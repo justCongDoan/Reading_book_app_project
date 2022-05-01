@@ -45,7 +45,7 @@ public class AddingPdfFileActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     // create arraylist to hold pdf categories
-    private ArrayList<CategoryModel> categoryModelArrayList;
+    private ArrayList<String> categoryTitleArrayList, categoryIdArrayList;
 
     // URI of picked pdf
     private Uri pdfUri = null;
@@ -117,7 +117,7 @@ public class AddingPdfFileActivity extends AppCompatActivity {
                 );
     }
 
-    private String title = "", description = "", category = "";
+    private String title = "", description = "";
 
     private void validatingData() {
         // Step 1: Validate data
@@ -126,7 +126,6 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         // get data
         title = binding.titleETID.getText().toString().trim();
         description = binding.descriptionETID.getText().toString().trim();
-        category = binding.categoryTV1ID.getText().toString().trim();
         
         // validate data
         if(TextUtils.isEmpty(title))
@@ -137,7 +136,7 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Please enter description...", Toast.LENGTH_SHORT).show();
         }
-        else if(TextUtils.isEmpty(category))
+        else if(TextUtils.isEmpty(selectedCategoryTitle))
         {
             Toast.makeText(this, "Please pick a category...", Toast.LENGTH_SHORT).show();
         }
@@ -212,7 +211,7 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         hashMap.put("id", "" + timeStamp);
         hashMap.put("title", "" + title);
         hashMap.put("description", "" + description);
-        hashMap.put("category", "" + category);
+        hashMap.put("categoryId", "" + selectedCategoryId);
         hashMap.put("url", "" + uploadedPdfUrl);
         hashMap.put("timeStamp", "" + timeStamp);
 
@@ -246,7 +245,8 @@ public class AddingPdfFileActivity extends AppCompatActivity {
 
     private void loadingPdfCategories() {
         Log.d(TAG, "loadingPdfCategories: Loading pdf categories...");
-        categoryModelArrayList = new ArrayList<>();
+        categoryTitleArrayList = new ArrayList<>();
+        categoryIdArrayList = new ArrayList<>();
 
         // db reference to load categories... db > Categories
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Categories");
@@ -256,17 +256,18 @@ public class AddingPdfFileActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 // clear before adding data
-                                categoryModelArrayList.clear();
+                                categoryTitleArrayList.clear();
+                                categoryIdArrayList.clear();
 
                                 for(DataSnapshot snapshot1 : snapshot.getChildren())
                                 {
-                                    // get data
-                                    CategoryModel model = snapshot1.getValue(CategoryModel.class);
+                                    // get id and title of category
+                                    String categoryId = "" + snapshot1.child("id").getValue(),
+                                            categoryTitle = "" + snapshot1.child("category").getValue();
 
-                                    // add to the arraylist
-                                    categoryModelArrayList.add(model);
-
-                                    Log.d(TAG, "onDataChange: " + model.getCategory());
+                                    // add to respective arraylist
+                                    categoryTitleArrayList.add(categoryTitle);
+                                    categoryIdArrayList.add(categoryId);
                                 }
                             }
 
@@ -278,15 +279,18 @@ public class AddingPdfFileActivity extends AppCompatActivity {
                 );
     }
 
+    // creating selected category id and category title
+    private String selectedCategoryId, selectedCategoryTitle;
+
     private void pickingCategoryDialog() {
         Log.d(TAG, "pickingCategoryDialog: showing category pick dialog");
 
         // getting string array of categories from arraylist
-        String[] categoriesArray = new String[categoryModelArrayList.size()];
+        String[] categoriesArray = new String[categoryTitleArrayList.size()];
 
-        for (int i = 0; i < categoryModelArrayList.size(); i++)
+        for (int i = 0; i < categoryTitleArrayList.size(); i++)
         {
-            categoriesArray[i] = categoryModelArrayList.get(i).getCategory();
+            categoriesArray[i] = categoryTitleArrayList.get(i);
         }
 
         // alert dialog
@@ -300,10 +304,13 @@ public class AddingPdfFileActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         // handle clicking item
                                         // get clicked item from list
-                                        String category = categoriesArray[i];
+                                        selectedCategoryTitle = categoryTitleArrayList.get(i);
+                                        selectedCategoryId = categoryIdArrayList.get(i);
 
                                         // set to category textView
-                                        binding.categoryTV1ID.setText(category);
+                                        binding.categoryTV1ID.setText(selectedCategoryTitle);
+
+                                        Log.d(TAG, "onClick: Selected Category: " + selectedCategoryId + " - " + selectedCategoryTitle);
                                     }
                                 }
                         ).show();
