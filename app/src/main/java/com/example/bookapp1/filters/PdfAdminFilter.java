@@ -1,22 +1,26 @@
-package com.example.bookapp1;
+package com.example.bookapp1.filters;
 
 import android.widget.Filter;
 
-import java.util.ArrayList;
-import java.util.Locale;
+import com.example.bookapp1.adapters.CategoryAdapter;
+import com.example.bookapp1.adapters.PdfAdminAdapter;
+import com.example.bookapp1.models.CategoryModel;
+import com.example.bookapp1.models.PdfModel;
 
-public class CategoryFilter extends Filter {
+import java.util.ArrayList;
+
+public class PdfAdminFilter extends Filter {
 
     // arrayList for searching category
-    ArrayList<CategoryModel> filterList;
+    ArrayList<PdfModel> filterList;
 
     // adapter (in which filter is needed to be implemented)
-    CategoryAdapter categoryAdapter;
+    PdfAdminAdapter pdfAdminAdapter;
 
     // constructor
-    public CategoryFilter(ArrayList<CategoryModel> filterList, CategoryAdapter categoryAdapter) {
+    public PdfAdminFilter(ArrayList<PdfModel> filterList, PdfAdminAdapter pdfAdminAdapter) {
         this.filterList = filterList;
-        this.categoryAdapter = categoryAdapter;
+        this.pdfAdminAdapter = pdfAdminAdapter;
     }
 
     @Override
@@ -28,12 +32,12 @@ public class CategoryFilter extends Filter {
         {
             // changing to upper case, or lower case to avoid sensitive cases
             charSequence = charSequence.toString().toUpperCase();
-            ArrayList<CategoryModel> filteredModels = new ArrayList<>();
+            ArrayList<PdfModel> filteredModels = new ArrayList<>();
 
             for (int i = 0; i < filterList.size(); i++)
             {
                 // validating
-                if (filterList.get(i).getCategory().toUpperCase().contains(charSequence))
+                if (filterList.get(i).getTitle().toUpperCase().contains(charSequence))
                 {
                     // adding to the filtered list
                     filteredModels.add(filterList.get(i));
@@ -56,9 +60,9 @@ public class CategoryFilter extends Filter {
     @Override
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
         // applying filter's changes
-        categoryAdapter.categoryModelArrayList = (ArrayList<CategoryModel>) filterResults.values;
+        pdfAdminAdapter.pdfModelArrayList = (ArrayList<PdfModel>) filterResults.values;
 
         // notifying changes
-        categoryAdapter.notifyDataSetChanged();
+        pdfAdminAdapter.notifyDataSetChanged();
     }
 }

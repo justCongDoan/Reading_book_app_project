@@ -69,7 +69,10 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottomLL_ID"
         android:layout_below="@id/searchET_ID"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/row_category" />
 
