@@ -45,90 +45,103 @@
 
     </RelativeLayout>
 
-    <!--Input book title-->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/titleTIL1_ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+    <!--Scroll view-->
+    <ScrollView
         android:layout_marginTop="225dp"
-        app:hintEnabled="false">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/titleET1_ID"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_edittext01"
-            android:drawableStart="@drawable/ic_picture_as_pdf_gray"
-            android:drawablePadding="10dp"
-            android:hint="Enter book title..."
-            android:inputType="textPersonName|textCapSentences"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray01"
-            android:textSize="16sp"/>
+            android:layout_height="match_parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!--Input book title-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleTIL1_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                app:hintEnabled="false">
 
-    <!--Input book description-->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/descriptionTIL1_ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_below="@id/titleTIL1_ID"
-        android:layout_marginTop="10dp"
-        app:hintEnabled="false">
+                <EditText
+                    android:id="@+id/titleET1_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_edittext01"
+                    android:drawableStart="@drawable/ic_picture_as_pdf_gray"
+                    android:drawablePadding="10dp"
+                    android:hint="Enter book title..."
+                    android:inputType="textPersonName|textCapSentences"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray01"
+                    android:textSize="16sp"/>
 
-        <EditText
-            android:id="@+id/descriptionET1_ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_edittext01"
-            android:drawableStart="@drawable/ic_picture_as_pdf_gray"
-            android:drawablePadding="10dp"
-            android:hint="Enter book description..."
-            android:inputType="textMultiLine|textCapSentences"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray01"
-            android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!--Input book description-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descriptionTIL1_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_below="@id/titleTIL1_ID"
+                android:layout_marginTop="10dp"
+                app:hintEnabled="false">
 
-    <!--Pick a book category-->
-    <TextView
-        android:id="@+id/categoryTV1_ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/descriptionTIL1_ID"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_edittext01"
-        android:drawableStart="@drawable/ic_category_gray"
-        android:drawableEnd="@drawable/ic_arrow_down_gray"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:hint="Book category"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray01"
-        android:textSize="16sp"/>
+                <EditText
+                    android:id="@+id/descriptionET1_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_edittext01"
+                    android:drawableStart="@drawable/ic_picture_as_pdf_gray"
+                    android:drawablePadding="10dp"
+                    android:hint="Enter book description..."
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray01"
+                    android:textSize="16sp"/>
 
-    <!--Update button-->
-    <Button
-        android:id="@+id/updateBtn_ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_button01"
-        android:layout_below="@id/categoryTV1_ID"
-        android:text="Update"
-        android:textColor="@color/white"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Pick a book category-->
+            <TextView
+                android:id="@+id/categoryTV1_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/descriptionTIL1_ID"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_edittext01"
+                android:drawableStart="@drawable/ic_category_gray"
+                android:drawableEnd="@drawable/ic_arrow_down_gray"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Book category"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray01"
+                android:textSize="16sp"/>
+
+            <!--Update button-->
+            <Button
+                android:id="@+id/updateBtn_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_button01"
+                android:layout_below="@id/categoryTV1_ID"
+                android:text="Update"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import static com.example.bookapp1.Constants.MAX_BYTES_PDF;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookapp1.EditingPdfFileActivity;
 import com.example.bookapp1.MyApplication;
 import com.example.bookapp1.databinding.RowPdfAdminBinding;
 import com.example.bookapp1.filters.PdfAdminFilter;
@@ -124,6 +126,10 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
     }
 
     private void moreOptionsDialog(PdfModel model, HolderPdfAdmin holder) {
+        String bookId = model.getId(),
+                bookUrl = model.getUrl(),
+                bookTitle = model.getTitle();
+
         // show options in the dialog
         String[] options = {"Edit", "Delete"};
 
@@ -140,6 +146,9 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
                                         if(i == 0)
                                         {
                                             // "edit" is chosen => open new activity to edit the book info
+                                            Intent intent = new Intent(context, EditingPdfFileActivity.class);
+                                            intent.putExtra("bookId", model.getId());
+                                            context.startActivity(intent);
                                         }
                                         else if(i == 1)
                                         {
@@ -171,7 +180,7 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
                                         Log.d(TAG, "onSuccess: Deleted from storage");
                                         Log.d(TAG, "onSuccess: Deleting info from the database...");
 
-                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Books");
                                         databaseReference.child(bookId)
                                                 .removeValue()
                                                 .addOnSuccessListener
@@ -190,7 +199,7 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
                                                                 new OnFailureListener() {
                                                                     @Override
                                                                     public void onFailure(@NonNull Exception e) {
-                                                                        Log.d(TAG, "onSuccess: Deleting from the database failed");
+                                                                        Log.d(TAG, "onFailure: Deleting from the database failed");
                                                                         progressDialog.dismiss();
                                                                         Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                                     }
