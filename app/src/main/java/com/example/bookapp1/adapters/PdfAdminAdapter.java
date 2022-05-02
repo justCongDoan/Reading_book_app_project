@@ -2,7 +2,9 @@ package com.example.bookapp1.adapters;
 
 import static com.example.bookapp1.Constants.MAX_BYTES_PDF;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookapp1.MyApplication;
@@ -53,11 +56,20 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
 
     private static final String TAG = "PDF_ADAPTER_TAG";
 
+    // progress dialog
+    private ProgressDialog progressDialog;
+
     // create a constructor
     public PdfAdminAdapter(Context context, ArrayList<PdfModel> pdfModelArrayList) {
         this.context = context;
         this.pdfModelArrayList = pdfModelArrayList;
         this.filterList = pdfModelArrayList;
+
+        // initializing progress dialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
     }
 
     @NonNull
@@ -96,6 +108,108 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
         loadCategory(model, holder);
         loadPdfFromUrl(model, holder);
         loadPdfSize(model, holder);
+
+        // handle clicking => show dialog with two options:
+        //      1) Edit
+        //      2) Delete
+        holder.moreInfoIBtn.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                moreOptionsDialog(model, holder);
+                            }
+                        }
+                );
+    }
+
+    private void moreOptionsDialog(PdfModel model, HolderPdfAdmin holder) {
+        // show options in the dialog
+        String[] options = {"Edit", "Delete"};
+
+        // create alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Choose an option:")
+                .setItems
+                        (
+                                options,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // handle clinking dialog option
+                                        if(i == 0)
+                                        {
+                                            // "edit" is chosen => open new activity to edit the book info
+                                        }
+                                        else if(i == 1)
+                                        {
+                                            // "delete" is chosen
+                                            deleteBook(model, holder);
+                                        }
+                                    }
+                                }
+                        ).show();
+    }
+
+    private void deleteBook(PdfModel model, HolderPdfAdmin holder) {
+        String bookId = model.getId(),
+                bookUrl = model.getUrl(),
+                bookTitle = model.getTitle();
+
+        Log.d(TAG, "deleteBook: Deleting...");
+        progressDialog.setMessage("Deleting " + bookTitle + "...");
+        progressDialog.show();
+
+        Log.d(TAG, "deleteBook: Deleting from the storage....");
+        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl);
+        reference.delete()
+                .addOnSuccessListener
+                        (
+                                new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: Deleted from storage");
+                                        Log.d(TAG, "onSuccess: Deleting info from the database...");
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.child(bookId)
+                                                .removeValue()
+                                                .addOnSuccessListener
+                                                        (
+                                                                new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        Log.d(TAG, "onSuccess: Deleted from the database");
+                                                                        progressDialog.dismiss();
+                                                                        Toast.makeText(context, "Book deleted successfully!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                        )
+                                                .addOnFailureListener
+                                                        (
+                                                                new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.d(TAG, "onSuccess: Deleting from the database failed");
+                                                                        progressDialog.dismiss();
+                                                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                        );
+                                    }
+                                }
+                        )
+                .addOnFailureListener
+                        (
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: Failed to delete from the storage due to " + e.getMessage());
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        );
     }
 
     private void loadPdfSize(PdfModel model, HolderPdfAdmin holder) {
