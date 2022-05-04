@@ -3,13 +3,13 @@ package com.example.bookapp1.models;
 public class PdfModel {
     // defining properties
     String uid, id, title, description, categoryId, url;
-    long timeStamp;
+    long timeStamp, viewCount, downloadCount;
 
     // defining constructors
     public PdfModel() {
     }
 
-    public PdfModel(String uid, String id, String title, String description, String categoryId, String url, long timeStamp) {
+    public PdfModel(String uid, String id, String title, String description, String categoryId, String url, long timeStamp, long viewCount, long downloadCount) {
         this.uid = uid;
         this.id = id;
         this.title = title;
@@ -17,9 +17,12 @@ public class PdfModel {
         this.categoryId = categoryId;
         this.url = url;
         this.timeStamp = timeStamp;
+        this.viewCount = viewCount;
+        this.downloadCount = downloadCount;
     }
 
     // defining getters, setters
+
     public String getUid() {
         return uid;
     }
@@ -74,5 +77,21 @@ public class PdfModel {
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(long viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public long getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(long downloadCount) {
+        this.downloadCount = downloadCount;
     }
 }

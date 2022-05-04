@@ -1,10 +1,5 @@
 package com.example.bookapp1;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityAddingPdfFileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -214,6 +213,8 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         hashMap.put("categoryId", "" + selectedCategoryId);
         hashMap.put("url", "" + uploadedPdfUrl);
         hashMap.put("timeStamp", timeStamp);
+        hashMap.put("viewCount", 0);
+        hashMap.put("downloadCount", 0);
 
         // db reference: DB > Books
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
