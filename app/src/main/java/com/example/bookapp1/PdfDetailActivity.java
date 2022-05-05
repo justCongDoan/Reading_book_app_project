@@ -47,6 +47,23 @@ public class PdfDetailActivity extends AppCompatActivity {
                             }
                         }
                 );
+
+        binding.readBookBtnID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // create activity for reading book (pdf file)
+                                Intent intent1 = new Intent
+                                        (
+                                                PdfDetailActivity.this,
+                                                PdfViewActivity.class
+                                        );
+                                intent1.putExtra("bookId", bookId);
+                                startActivity(intent1);
+                            }
+                        }
+                );
     }
 
     private void loadBookDetails() {
