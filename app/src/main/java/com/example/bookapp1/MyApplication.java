@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 // application class will run before launching activity
@@ -244,6 +245,44 @@ public class MyApplication extends Application {
 
                                         // set to category text view
                                         categoryTV.setText(category);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                }
+                        );
+    }
+
+    public static void increasingBookViewCount(String bookId)
+    {
+        // 1) get book views count
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+        reference.child(bookId)
+                .addListenerForSingleValueEvent
+                        (
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        // get views count
+                                        String viewsCount = "" + snapshot.child("viewsCount").getValue();
+
+                                        // in case the null value is replaced with 0
+                                        if(viewsCount.equals("") || viewsCount.equals("null"))
+                                        {
+                                            viewsCount = "0";
+                                        }
+
+                                        // 2) increase view count
+                                        long newViewsCount = Long.parseLong(viewsCount) + 1;
+
+                                        HashMap<String, Object> hashMap = new HashMap<>();
+                                        hashMap.put("viewsCount", newViewsCount);
+
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Books");
+                                        reference1.child(bookId)
+                                                .updateChildren(hashMap);
                                     }
 
                                     @Override
