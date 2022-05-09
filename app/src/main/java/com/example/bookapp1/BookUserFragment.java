@@ -138,7 +138,7 @@ public class BookUserFragment extends Fragment {
                                         for (DataSnapshot dataSnapshot : snapshot.getChildren())
                                         {
                                             // get data
-                                            PdfModel model = snapshot.getValue(PdfModel.class);
+                                            PdfModel model = dataSnapshot.getValue(PdfModel.class);
                                             // add to the list
                                             pdfModelArrayList.add(model);
                                         }
@@ -174,7 +174,7 @@ public class BookUserFragment extends Fragment {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                                 {
                                     // get data
-                                    PdfModel model = snapshot.getValue(PdfModel.class);
+                                    PdfModel model = dataSnapshot.getValue(PdfModel.class);
                                     // add to the list
                                     pdfModelArrayList.add(model);
                                 }
@@ -209,7 +209,7 @@ public class BookUserFragment extends Fragment {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                                 {
                                     // get data
-                                    PdfModel model = snapshot.getValue(PdfModel.class);
+                                    PdfModel model = dataSnapshot.getValue(PdfModel.class);
                                     // add to the list
                                     pdfModelArrayList.add(model);
                                 }

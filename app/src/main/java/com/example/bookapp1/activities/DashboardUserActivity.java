@@ -104,7 +104,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                                                         (
                                                                 "" + allCM.getId(),
                                                                 "" + allCM.getCategory(),
-                                                                "" + allCM.getId()
+                                                                "" + allCM.getUid()
                                                         ),
                                                 allCM.getCategory()
                                         );
@@ -116,7 +116,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                                                         (
                                                                 "" + mostViewedCM.getId(),
                                                                 "" + mostViewedCM.getCategory(),
-                                                                "" + mostViewedCM.getId()
+                                                                "" + mostViewedCM.getUid()
                                                         ),
                                                 mostViewedCM.getCategory()
                                         );
@@ -128,7 +128,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                                                         (
                                                                 "" + mostDownloadedCM.getId(),
                                                                 "" + mostDownloadedCM.getCategory(),
-                                                                "" + mostDownloadedCM.getId()
+                                                                "" + mostDownloadedCM.getUid()
                                                         ),
                                                 mostDownloadedCM.getCategory()
                                         );
