@@ -1,10 +1,10 @@
-package com.example.bookapp1;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookapp1.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityMainBinding;
 

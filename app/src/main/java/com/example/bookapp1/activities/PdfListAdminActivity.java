@@ -1,7 +1,4 @@
-package com.example.bookapp1;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookapp1.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +6,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.adapters.PdfAdminAdapter;
 import com.example.bookapp1.databinding.ActivityPdfListAdminBinding;

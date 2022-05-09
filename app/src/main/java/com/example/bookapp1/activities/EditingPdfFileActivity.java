@@ -1,4 +1,4 @@
-package com.example.bookapp1;
+package com.example.bookapp1.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

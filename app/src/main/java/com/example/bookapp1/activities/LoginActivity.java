@@ -1,7 +1,4 @@
-package com.example.bookapp1;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookapp1.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +7,8 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnFailureListener;

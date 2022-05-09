@@ -21,17 +21,22 @@
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/shape_button03.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/shape_toolbar01.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/shape_toolbar02.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/tab_background_selected.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/tab_background_unselected.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/tab_selector.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_adding_pdf_file.xml" value="0.22456140350877193" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_category_add.xml" value="0.264" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.264" />
-        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_dashboard_user.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_dashboard_user.xml" value="0.136" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_pdf_list_admin.xml" value="0.22456140350877193" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/fragment_book_user.xml" value="0.16" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/row_category.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/row_pdf_admin.xml" value="0.2" />
+        <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/layout/row_pdf_user.xml" value="0.2" />
       </map>
     </option>
   </component>

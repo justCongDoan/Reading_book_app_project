@@ -1,13 +1,13 @@
-package com.example.bookapp1;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bookapp1.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityCategoryAddBinding;
 import com.google.android.gms.tasks.OnFailureListener;

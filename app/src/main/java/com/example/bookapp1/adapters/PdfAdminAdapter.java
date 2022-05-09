@@ -17,9 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bookapp1.EditingPdfFileActivity;
+import com.example.bookapp1.activities.EditingPdfFileActivity;
 import com.example.bookapp1.MyApplication;
-import com.example.bookapp1.PdfDetailActivity;
+import com.example.bookapp1.activities.PdfDetailActivity;
 import com.example.bookapp1.databinding.RowPdfAdminBinding;
 import com.example.bookapp1.filters.PdfAdminFilter;
 import com.example.bookapp1.models.PdfModel;
