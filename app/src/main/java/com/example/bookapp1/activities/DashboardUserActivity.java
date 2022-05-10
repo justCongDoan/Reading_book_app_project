@@ -58,7 +58,15 @@ public class DashboardUserActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 firebaseAuth.signOut();
-                                checkUser();
+                                startActivity
+                                        (
+                                                new Intent
+                                                        (
+                                                                DashboardUserActivity.this,
+                                                                MainActivity.class
+                                                        )
+                                        );
+                                finish();
                             }
                         }
                 );
@@ -212,16 +220,8 @@ public class DashboardUserActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser == null)
         {
-            // not logged in, goto main screen
-            startActivity
-                    (
-                            new Intent
-                                    (
-                                            this,
-                                            MainActivity.class
-                                    )
-                    );
-            finish();
+            // not logged in
+            binding.subTitleTVID.setText("Not logged in");
         }
         else
         {

@@ -72,7 +72,8 @@ public class PdfUserAdapter extends RecyclerView.Adapter<PdfUserAdapter.HolderPd
                         "" + pdfUrl,
                         "" + title,
                         holder.pdfView,
-                        holder.progressBar
+                        holder.progressBar,
+                        null
                 );
         MyApplication.loadCategory
                 (
