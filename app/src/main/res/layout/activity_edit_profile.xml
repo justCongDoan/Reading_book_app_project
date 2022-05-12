@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    tools:context=".activities.EditProfileActivity">
+
+    <!--Toolbar-->
+    <RelativeLayout
+        android:id="@+id/toolBarRL7_ID"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/shape_toolbar01">
+
+        <!--Back button-->
+        <ImageButton
+            android:id="@+id/backIBtn8_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_white"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/titleTV5_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit profile"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"/>
+
+        <!--Profile avatar-->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileSIV1_ID"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/titleTV5_ID"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            app:shapeAppearance="@style/roundedCornersImageStyle"
+            android:src="@drawable/ic_person_gray"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="225dp">
+
+        <!--EditText: Input name-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTil1_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/nameET1_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edittext01"
+                android:drawableStart="@drawable/ic_person_gray"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:inputType="textPersonName|textCapWords"
+                android:hint="Enter name..."
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray01"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Update button-->
+        <Button
+            android:id="@+id/updateProfileBtn_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTil1_ID"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_button01"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

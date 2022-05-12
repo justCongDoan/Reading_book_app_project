@@ -14,6 +14,16 @@
         android:layout_height="?actionBarSize"
         android:background="@drawable/shape_toolbar02">
 
+        <!--ImageButton: Open profile-->
+        <ImageButton
+            android:id="@+id/userProfileBtn_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_person_white" />
+
         <TextView
             android:id="@+id/titleTV_ID"
             android:layout_width="wrap_content"
