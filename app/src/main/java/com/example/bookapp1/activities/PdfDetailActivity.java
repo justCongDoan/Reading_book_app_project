@@ -16,13 +16,17 @@ import androidx.core.content.ContextCompat;
 
 import com.example.bookapp1.MyApplication;
 import com.example.bookapp1.R;
+import com.example.bookapp1.adapters.FavoritePdfAdapter;
 import com.example.bookapp1.databinding.ActivityPdfDetailBinding;
+import com.example.bookapp1.models.PdfModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PdfDetailActivity extends AppCompatActivity {
 
@@ -61,6 +65,8 @@ public class PdfDetailActivity extends AppCompatActivity {
 
         // increase book view count, whenever this page starts
         MyApplication.increasingBookViewCount(bookId);
+
+
 
         // go back
         binding.backIBtn5ID.setOnClickListener
@@ -139,6 +145,8 @@ public class PdfDetailActivity extends AppCompatActivity {
                         }
                 );
     }
+
+
 
     // request storage permission
     private ActivityResultLauncher<String> requestPermissionLauncher

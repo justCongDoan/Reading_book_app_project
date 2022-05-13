@@ -11,13 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.bookapp1.MyApplication;
 import com.example.bookapp1.R;
+import com.example.bookapp1.adapters.FavoritePdfAdapter;
 import com.example.bookapp1.databinding.ActivityProfileBinding;
+import com.example.bookapp1.models.PdfModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,6 +30,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     // create firebase auth for loading user data using uid
     private FirebaseAuth firebaseAuth;
+
+    // create an arraylist to hold the books
+    private ArrayList<PdfModel> pdfModelArrayList;
+    // create an adapter to set in recyclerView
+    private FavoritePdfAdapter favoritePdfAdapter;
     
     private static final String TAG = "PROFILE_TAG";
 
@@ -38,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         // setup firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         loadUserInfo();
+        loadFavoriteBooks();
 
         // handle click => start profile editing screen
         binding.editProfileIBtnID.setOnClickListener
@@ -67,6 +77,52 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                 );
+    }
+
+    private void loadFavoriteBooks() {
+        // initializing list
+        pdfModelArrayList = new ArrayList<>();
+
+        // load favorite books from the database
+        // Users > userId > Favourite
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(firebaseAuth.getUid()).child("Favourite")
+                .addValueEventListener
+                        (
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        // clear list before starting adding data
+                                        pdfModelArrayList.clear();
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                                        {
+                                            // get only the bookId here, and will get other details in adapter using that bookId
+                                            String bookId = "" + dataSnapshot.child("bookId").getValue();
+
+                                            // setting data to the model
+                                            PdfModel pdfModel = new PdfModel();
+                                            pdfModel.setId(bookId);
+
+                                            // add model to the list
+                                            pdfModelArrayList.add(pdfModel);
+                                        }
+
+                                        // set the number of favorite books
+                                        binding.favouriteBooksCountTVID.setText("" + pdfModelArrayList.size());
+
+                                        // setting up adapter
+                                        favoritePdfAdapter = new FavoritePdfAdapter(ProfileActivity.this, pdfModelArrayList);
+
+                                        // set adapter to recyclerView
+                                        binding.bookRV1ID.setAdapter(favoritePdfAdapter);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                }
+                        );
     }
 
     private void loadUserInfo() {

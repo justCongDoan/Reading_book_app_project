@@ -4,12 +4,13 @@ public class PdfModel {
     // defining properties
     String uid, id, title, description, categoryId, url;
     long timeStamp, viewsCount, downloadsCount;
+    boolean favorite;
 
     // defining constructors
     public PdfModel() {
     }
 
-    public PdfModel(String uid, String id, String title, String description, String categoryId, String url, long timeStamp, long viewsCount, long downloadsCount) {
+    public PdfModel(String uid, String id, String title, String description, String categoryId, String url, long timeStamp, long viewsCount, long downloadsCount, boolean favorite) {
         this.uid = uid;
         this.id = id;
         this.title = title;
@@ -19,6 +20,7 @@ public class PdfModel {
         this.timeStamp = timeStamp;
         this.viewsCount = viewsCount;
         this.downloadsCount = downloadsCount;
+        this.favorite = favorite;
     }
 
     // defining getters, setters
@@ -94,5 +96,13 @@ public class PdfModel {
 
     public void setDownloadsCount(long downloadsCount) {
         this.downloadsCount = downloadsCount;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }
