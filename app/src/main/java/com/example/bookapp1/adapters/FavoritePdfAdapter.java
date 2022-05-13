@@ -181,3 +181,4 @@ public class FavoritePdfAdapter extends RecyclerView.Adapter<FavoritePdfAdapter.
         }
     }
 }
+// Friday, May 13th, 2022 - justCongDoan

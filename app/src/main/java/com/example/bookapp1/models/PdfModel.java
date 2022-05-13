@@ -106,3 +106,4 @@ public class PdfModel {
         this.favorite = favorite;
     }
 }
+// Friday, May 13th, 2022 - justCongDoan
