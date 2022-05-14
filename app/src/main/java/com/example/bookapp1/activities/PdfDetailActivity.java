@@ -1,28 +1,40 @@
 package com.example.bookapp1.activities;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.bookapp1.MyApplication;
 import com.example.bookapp1.R;
+import com.example.bookapp1.adapters.CommentAdapter;
 import com.example.bookapp1.databinding.ActivityPdfDetailBinding;
+import com.example.bookapp1.databinding.AddCommentDialogBinding;
+import com.example.bookapp1.models.CommentModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PdfDetailActivity extends AppCompatActivity {
 
@@ -38,6 +50,14 @@ public class PdfDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DOWNLOAD_TAG";
 
+    // progress dialog
+    private ProgressDialog progressDialog;
+
+    // create an arraylist to hold comments
+    private ArrayList<CommentModel> commentModelArrayList;
+    // create an adapter to set to the recyclerView
+    private CommentAdapter commentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +71,11 @@ public class PdfDetailActivity extends AppCompatActivity {
         // at first, hiding download button, as we need url of the book to load later in function loadBookDetails()
         binding.downloadBookBtnID.setVisibility(View.GONE);
 
+        // initializing progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null)
         {
@@ -58,6 +83,7 @@ public class PdfDetailActivity extends AppCompatActivity {
         }
 
         loadBookDetails();
+        loadComments();
 
         // increase book view count, whenever this page starts
         MyApplication.increasingBookViewCount(bookId);
@@ -140,9 +166,152 @@ public class PdfDetailActivity extends AppCompatActivity {
                             }
                         }
                 );
+
+        // handle click => show comment adding dialog
+        binding.addCommentIBtnID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // first, user must log in in order to add comment
+                                if (firebaseAuth.getCurrentUser() == null)
+                                {
+                                    Toast.makeText(PdfDetailActivity.this, "Please log in...", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    addCommentDialog();
+                                }
+                            }
+                        }
+                );
     }
 
+    private void loadComments() {
+        // initializing arraylist before adding data into it
+        commentModelArrayList = new ArrayList<>();
 
+        // create database path to load comments
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+        reference.child(bookId).child("Comments")
+                .addValueEventListener
+                        (
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        // clear arraylist before start adding data into it
+                                        commentModelArrayList.clear();
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                                        {
+                                            // get data as model, spellings of variables in the model must be as same as in firebase
+                                            CommentModel model = dataSnapshot.getValue(CommentModel.class);
+                                            // add to the arraylist
+                                            commentModelArrayList.add(model);
+                                        }
+                                        // setting up adapter
+                                        commentAdapter = new CommentAdapter(PdfDetailActivity.this, commentModelArrayList);
+                                        // set adapter to the recyclerView
+                                        binding.commentsRVID.setAdapter(commentAdapter);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                }
+                        );
+    }
+
+    private String comment = "";
+
+    private void addCommentDialog() {
+        // inflating bind view for dialog
+        AddCommentDialogBinding addCommentDialogBinding = AddCommentDialogBinding.inflate(LayoutInflater.from(this));
+
+        // setting up alert dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        builder.setView(addCommentDialogBinding.getRoot());
+
+        // create & show alert dialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        // handle click => dismiss dialog
+        addCommentDialogBinding.backIBtn9ID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialog.dismiss();
+                            }
+                        }
+                );
+
+        // handle click => add comment
+        addCommentDialogBinding.submitCommentBtnID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // get data
+                                comment = addCommentDialogBinding.commentTIETID.getText().toString().trim();
+                                // validating data
+                                if (TextUtils.isEmpty(comment))
+                                {
+                                    Toast.makeText(PdfDetailActivity.this, "Enter your comment...", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    alertDialog.dismiss();
+                                    addComment();
+                                }
+                            }
+                        }
+                );
+    }
+
+    private void addComment() {
+        // show progress
+        progressDialog.setMessage("Adding comment...");
+        progressDialog.show();
+
+        // create timestamp for comment id, comment time
+        String timestamp = "" + System.currentTimeMillis();
+
+        // setting up data to add into the database for the comments
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", "" + timestamp);
+        hashMap.put("bookId", "" + bookId);
+        hashMap.put("timestamp", "" + timestamp);
+        hashMap.put("comment", "" + comment);
+        hashMap.put("uid", "" + firebaseAuth.getUid());
+
+        // create Database path to add data into it
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+        reference.child(bookId).child("Comments").child(timestamp)
+                .setValue(hashMap)
+                .addOnSuccessListener
+                        (
+                                new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(PdfDetailActivity.this, "Comment Added successfully!", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                    }
+                                }
+                        )
+                .addOnFailureListener
+                        (
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // failed to add comment
+                                        progressDialog.dismiss();
+                                        Toast.makeText(PdfDetailActivity.this, "Failed to add comment due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        );
+    }
 
     // request storage permission
     private ActivityResultLauncher<String> requestPermissionLauncher

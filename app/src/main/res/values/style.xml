@@ -8,4 +8,21 @@
 
     </style>
 
+    <!--Theme for circle image-->
+    <style name="circleImageStyle">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+
+    </style>
+
+    <!--Theme for transparent background of dialog-->
+    <style name="CustomDialog"
+        parent="android:Theme.Dialog">
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+    </style>
+
 </resources>
