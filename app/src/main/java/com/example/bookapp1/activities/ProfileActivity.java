@@ -1,11 +1,15 @@
 package com.example.bookapp1.activities;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -14,7 +18,10 @@ import com.example.bookapp1.R;
 import com.example.bookapp1.adapters.FavoritePdfAdapter;
 import com.example.bookapp1.databinding.ActivityProfileBinding;
 import com.example.bookapp1.models.PdfModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +37,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     // create firebase auth for loading user data using uid
     private FirebaseAuth firebaseAuth;
+    // create firebase current user
+    private FirebaseUser firebaseUser;
 
     // create an arraylist to hold the books
     private ArrayList<PdfModel> pdfModelArrayList;
     // create an adapter to set in recyclerView
     private FavoritePdfAdapter favoritePdfAdapter;
+
+    // progress dialog
+    private ProgressDialog progressDialog;
     
     private static final String TAG = "PROFILE_TAG";
 
@@ -44,8 +56,22 @@ public class ProfileActivity extends AppCompatActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // resetting data of user's info
+        binding.accountTypeTVID.setText("N/A");
+        binding.memberDateTVID.setText("N/A");
+        binding.favouriteBooksCountTVID.setText("N/A");
+        binding.accountStatusTVID.setText("N/A");
+
         // setup firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
+        // get current user
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        // initializing/setting up progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
         loadUserInfo();
         loadFavoriteBooks();
 
@@ -77,6 +103,83 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                 );
+
+        // handle click => verifying user (if not)
+        binding.accountStatusTVID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (firebaseUser.isEmailVerified())
+                                {
+                                    // if having verified already
+                                    Toast.makeText(ProfileActivity.this, "Already verified.", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    // if not, show confirmation dialog first
+                                    emailVerificationDialog();
+                                }
+                            }
+                        }
+                );
+    }
+
+    private void emailVerificationDialog() {
+        // Alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please wait")
+                .setMessage("Are you sure you want to to send email verification instructions to your email: " + firebaseUser.getEmail() + "?")
+                .setPositiveButton
+                        (
+                                "SEND",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        sendEmailVerification();
+                                    }
+                                }
+                        )
+                .setNegativeButton
+                        (
+                                "CANCEL",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }
+                        ).show();
+    }
+
+    private void sendEmailVerification() {
+        // show progress
+        progressDialog.setMessage("Sending email verification instructions to your email: " + firebaseUser.getEmail());
+        progressDialog.show();
+
+        firebaseUser.sendEmailVerification()
+                .addOnSuccessListener
+                        (
+                                new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        // successfully sent
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ProfileActivity.this, "Instructions were sent to your email: " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        )
+                .addOnFailureListener
+                        (
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // failed to send
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ProfileActivity.this, "Failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        );
     }
 
     private void loadFavoriteBooks() {
@@ -127,6 +230,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void loadUserInfo() {
         Log.d(TAG, "loadUserInfo: Loading user information of user " + firebaseAuth.getUid());
+
+        // get email verification status, after that, user must re-login to get changes
+        if (firebaseUser.isEmailVerified())
+        {
+            binding.accountStatusTVID.setText("Verified");
+        }
+        else
+        {
+            binding.accountStatusTVID.setText("Not verified");
+        }
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(firebaseAuth.getUid())

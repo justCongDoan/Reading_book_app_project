@@ -75,6 +75,24 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                 );
+
+        // handle click => move to "forgot password" screen
+        binding.forgotTVID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity
+                                        (
+                                                new Intent
+                                                        (
+                                                                LoginActivity.this,
+                                                                ForgotPasswordActivity.class
+                                                        )
+                                        );
+                            }
+                        }
+                );
     }
 
     private String email = "", password = "";
