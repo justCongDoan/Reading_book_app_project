@@ -137,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
                         (
                                 new OnFailureListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                    public void onFailure(Exception e) {
                                         // failed
                                         progressDialog.dismiss();
                                         Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();

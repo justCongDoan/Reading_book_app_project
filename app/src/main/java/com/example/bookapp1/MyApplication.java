@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.example.bookapp1.adapters.PdfAdminAdapter;
+import com.example.bookapp1.models.PdfModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,25 +39,22 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-// application class will run before launching activity
+//application class runs before your launcher activity
 public class MyApplication extends Application {
 
-    private static final String TAG = "DOWNLOAD_TAG";
+    private static final String TAG_DOWNLOAD = "DOWNLOAD_TAG";
 
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
-    // create a static method to convert timestamp to proper date format,
-    // no need to rewrite again
-    public static final String timestampFormat(long timeStamp)
-    {
-        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-        calendar.setTimeInMillis(timeStamp);
-
-        // formatting timestamp to dd/mm/yyyy
-        String date = DateFormat.format("dd/MM/yyyy", calendar).toString();
+    //created a static method to convert timestamp to proper date format, so we can use it everywhere in project, no need to rewirte again
+    public static final String timestampFormat(long timestamp){
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestamp);
+        //format timestamp to dd/MM/yyyy
+        String date = DateFormat.format("dd/MM/yyyy", cal).toString();
 
         return date;
     }
@@ -66,454 +65,384 @@ public class MyApplication extends Application {
         Log.d(TAG, "deleteBook: Deleting...");
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Please wait");
-        progressDialog.setMessage("Deleting " + bookTitle + "...");
+        progressDialog.setMessage("Deleting "+bookTitle+" ..."); //e.g. Deleting Book ABC ...
         progressDialog.show();
 
-        Log.d(TAG, "deleteBook: Deleting from the storage....");
-        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl);
-        reference.delete()
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
+        Log.d(TAG, "deleteBook: Deleting from storage...");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl);
+        storageReference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Deleted from storage");
+
+                        Log.d(TAG, "onSuccess: Now deleting info from db");
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+                        reference.child(bookId)
+                                .removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Log.d(TAG, "onSuccess: Deleted from storage");
-                                        Log.d(TAG, "onSuccess: Deleting info from the database...");
-
-                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Books");
-                                        databaseReference.child(bookId)
-                                                .removeValue()
-                                                .addOnSuccessListener
-                                                        (
-                                                                new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void unused) {
-                                                                        Log.d(TAG, "onSuccess: Deleted from the database");
-                                                                        progressDialog.dismiss();
-                                                                        Toast.makeText(context, "Book deleted successfully!", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                        )
-                                                .addOnFailureListener
-                                                        (
-                                                                new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        Log.d(TAG, "onFailure: Deleting from the database failed");
-                                                                        progressDialog.dismiss();
-                                                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                        );
-                                    }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Failed to delete from the storage due to " + e.getMessage());
+                                        Log.d(TAG, "onSuccess: Deleted from db too");
                                         progressDialog.dismiss();
-                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Book Deleted Successfully...", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                        );
-    }
-
-    public static void loadPdfSize(String pdfUrl, String pdfTitle, TextView sizeTV) {
-        String TAG = "PDF_SIZE_TAG";
-        // get file and its metadata from firebase storage by using url
-
-        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        reference.getMetadata()
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<StorageMetadata>() {
-                                    @Override
-                                    public void onSuccess(StorageMetadata storageMetadata) {
-                                        // getting size in bytes
-                                        double bytes = storageMetadata.getSizeBytes();
-
-                                        Log.d(TAG, "onSuccess: " + pdfTitle + " - " + bytes);
-
-                                        // convert bytes to KB, MB
-                                        double KB = bytes / 1024,
-                                                MB = KB / 1024;
-
-                                        if(MB >= 1)
-                                        {
-                                            sizeTV.setText(String.format("%.2f", MB) + "MB");
-                                        }
-                                        else if(KB >= 1)
-                                        {
-                                            sizeTV.setText(String.format("%.2f", KB) + "KB");
-                                        }
-                                        else
-                                        {
-                                            sizeTV.setText(String.format("%.2f", bytes) + "Bytes");
-                                        }
-                                    }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        // failed getting metadata
-                                        Log.d(TAG, "onFailure: " + e.getMessage());
+                                        Log.d(TAG, "onFailure: Failed to delete from db due to "+e.getMessage());
+                                        progressDialog.dismiss();
+                                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                        );
+                                });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull  Exception e) {
+                        Log.d(TAG, "onFailure: Failed to delete from storage due to "+e.getMessage());
+                        progressDialog.dismiss();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    public static void loadPdfFromUrlSinglePage(String pdfUrl, String pdfTitle, PDFView pdfView, ProgressBar progressBar, TextView pagesTV) {
-        // get file and its metadata from firebase storage by using url
+    public static void loadPdfSize(String pdfUrl, String pdfTitle, TextView sizeTv) {
+        String TAG = "PDF_SIZE_TAG";
+        //using url we can get file and its metadata from firebase storage
+
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
+        ref.getMetadata()
+                .addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                    @Override
+                    public void onSuccess(StorageMetadata storageMetadata) {
+                        //get size in bytes
+                        double bytes = storageMetadata.getSizeBytes();
+                        Log.d(TAG, "onSuccess: "+pdfTitle +" "+bytes);
+
+                        //convert bytes to KB, MB
+                        double kb = bytes/1024;
+                        double mb = kb/1024;
+
+                        if (mb >= 1){
+                            sizeTv.setText(String.format("%.2f", mb)+" MB");
+                        }
+                        else if (kb >= 1){
+                            sizeTv.setText(String.format("%.2f", kb)+" KB");
+                        }
+                        else {
+                            sizeTv.setText(String.format("%.2f", bytes)+" bytes");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //failed getting metadata
+                        Log.d(TAG, "onFailure: "+e.getMessage());
+                    }
+                });
+    }
+
+    /*instead of making new function loadPdfPageCount() to just load pages count it would be more good to use some existing function to do that
+     * i.e. loadPdfFromUrlSinglePage
+     * We will add another parameter of type TextView e.g. pagesTv
+     * Whenever we call that function
+     *   1) if we require page numbers we will pass pagesTv (TextView)
+     *   2) If we don't require page number we will pass null
+     * And in function if pagesTv (TextView) parameter is not null we will set the page number count*/
+    public static void loadPdfFromUrlSinglePage(String pdfUrl, String pdfTitle, PDFView pdfView, ProgressBar progressBar, TextView pagesTv) {
+        //using url we can get file and its metadata from firebase storage
         String TAG = "PDF_LOAD_SINGLE_TAG";
 
-        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        reference.getBytes(MAX_BYTES_PDF)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        Log.d(TAG, "onSuccess: " + pdfTitle + " successfully got the file!");
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
+        ref.getBytes(MAX_BYTES_PDF)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.d(TAG, "onSuccess: "+pdfTitle+ " successfylly got the file");
 
-                                        // set to pdf view
-                                        pdfView.fromBytes(bytes)
-                                                .pages(0)
-                                                .spacing(0)
-                                                .swipeHorizontal(false)
-                                                .enableSwipe(false)
-                                                .onError
-                                                        (
-                                                                new OnErrorListener() {
-                                                                    @Override
-                                                                    public void onError(Throwable t) {
-                                                                        // hide progress
-                                                                        progressBar.setVisibility(View.INVISIBLE);
-                                                                        Log.d(TAG, "onError: " + t.getMessage());
-                                                                    }
-                                                                }
-                                                        )
-                                                .onPageError
-                                                        (
-                                                                new OnPageErrorListener() {
-                                                                    @Override
-                                                                    public void onPageError(int page, Throwable t) {
-                                                                        // hide progress
-                                                                        progressBar.setVisibility(View.INVISIBLE);
-                                                                        Log.d(TAG, "onPageError: " + t.getMessage());
-                                                                    }
-                                                                }
-                                                        )
-                                                .onLoad
-                                                        (
-                                                                new OnLoadCompleteListener() {
-                                                                    @Override
-                                                                    public void loadComplete(int nbPages) {
-                                                                        // pdf loaded
-                                                                        // hide progress
-                                                                        progressBar.setVisibility(View.INVISIBLE);
-                                                                        Log.d(TAG, "loadComplete: PDF file loaded!");
 
-                                                                        // if pagesTV param is not null => set the page number
-                                                                        if (pagesTV != null)
-                                                                        {
-                                                                            // concatenate with double quotes because we can't set in the textView
-                                                                            pagesTV.setText("" + nbPages);
-                                                                        }
-                                                                    }
-                                                                }
-                                                        ).load();
-                                    }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
+                        //set to pdfview
+                        pdfView.fromBytes(bytes)
+                                .pages(0) //show only first page
+                                .spacing(0)
+                                .swipeHorizontal(false)
+                                .enableSwipe(false)
+                                .onError(new OnErrorListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                    public void onError(Throwable t) {
+                                        //hide progress
                                         progressBar.setVisibility(View.INVISIBLE);
-                                        Log.d(TAG, "onFailure: failed getting file from url due to " + e.getMessage());
+                                        Log.d(TAG, "onError: "+t.getMessage());
                                     }
-                                }
-                        );
-    }
-
-    public static void loadCategory(String categoryId, TextView categoryTV) {
-        // get category using categoryId
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Categories");
-        reference.child(categoryId)
-                .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
+                                })
+                                .onPageError(new OnPageErrorListener() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        // get category
-                                        String category = "" + snapshot.child("category").getValue();
-
-                                        // set to category text view
-                                        categoryTV.setText(category);
+                                    public void onPageError(int page, Throwable t) {
+                                        //hide progress
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Log.d(TAG, "onPageError: "+t.getMessage());
                                     }
-
+                                })
+                                .onLoad(new OnLoadCompleteListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    public void loadComplete(int nbPages) {
+                                        //pdf loaded
+                                        //hide progress
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Log.d(TAG, "loadComplete: pdf loaded");
 
-                                    }
-                                }
-                        );
-    }
-
-    public static void increasingBookViewCount(String bookId)
-    {
-        // 1) get book views count
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
-        reference.child(bookId)
-                .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        // get views count
-                                        String viewsCount = "" + snapshot.child("viewsCount").getValue();
-
-                                        // in case the null value is replaced with 0
-                                        if(viewsCount.equals("") || viewsCount.equals("null"))
-                                        {
-                                            viewsCount = "0";
+                                        //if pagesTv param is not null then set page numbers
+                                        if (pagesTv != null){
+                                            pagesTv.setText(""+nbPages); //concatnate with double quotes because cant set int in textview
                                         }
-
-                                        // 2) increase view count
-                                        long newViewsCount = Long.parseLong(viewsCount) + 1;
-
-                                        HashMap<String, Object> hashMap = new HashMap<>();
-                                        hashMap.put("viewsCount", newViewsCount);
-
-                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Books");
-                                        reference1.child(bookId)
-                                                .updateChildren(hashMap);
                                     }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                }
-                        );
+                                })
+                                .load();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //hide progress
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "onFailure: failed getting file from url due to "+e.getMessage());
+                    }
+                });
     }
 
-    public static void downloadBook(Context context, String bookId, String bookTitle, String bookUrl)
-    {
-        Log.d(TAG, "downloadBook: downloading book...");
+    public static void loadCategory(String categoryId, TextView categoryTv) {
+        //get category using categoryId
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories");
+        ref.child(categoryId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //get category
+                        String category = ""+snapshot.child("category").getValue();
+
+                        //set to category text view
+                        categoryTv.setText(category);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public static void increasingBookViewCount(String bookId){
+        //1) Get book views count
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.child(bookId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                        //get views count
+                        String viewsCount = ""+snapshot.child("viewsCount").getValue();
+                        //in case of null replace with 0
+                        if (viewsCount.equals("") || viewsCount.equals("null")){
+                            viewsCount = "0";
+                        }
+
+
+                        //2)Increment views count
+                        long newViewsCount = Long.parseLong(viewsCount) + 1;
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("viewsCount", newViewsCount);
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+                        reference.child(bookId)
+                                .updateChildren(hashMap);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull  DatabaseError error) {
+
+                    }
+                });
+    }
+
+    public static void downloadBook(Context context, String bookId, String bookTitle, String bookUrl){
+        Log.d(TAG_DOWNLOAD, "downloadBook: downloading book...");
 
         String nameWithExtension = bookTitle + ".pdf";
-        Log.d(TAG, "downloadBook: NAME" + nameWithExtension);
+        Log.d(TAG_DOWNLOAD, "downloadBook: NAME: "+nameWithExtension);
 
-        // progress dialog
+        //progress dialog
         ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Please wait.");
-        progressDialog.setMessage("Downloading " + nameWithExtension + "...");  // e.g: abc.pdf
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Downloading "+ nameWithExtension +"..."); //e.g. Downloding ABC_Book.pdf
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        // download from firebase storage using url
+        //download from firebase storage using url
         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl);
         storageReference.getBytes(MAX_BYTES_PDF)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        Log.d(TAG, "onSuccess: Book downloaded!");
-                                        Log.d(TAG, "onSuccess: Saving book...");
-                                        saveDownloadedBook(context, progressDialog, bytes, nameWithExtension, bookId);
-                                    }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Failed to download due to " + e.getMessage());
-                                        progressDialog.dismiss();
-                                        Toast.makeText(context, "Failed to download due to" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        );
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.d(TAG_DOWNLOAD, "onSuccess: Book Downloaded");
+                        saveDownloadedBook(context, progressDialog, bytes, nameWithExtension, bookId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG_DOWNLOAD, "onFailure: Failed to download due to "+e.getMessage());
+                        progressDialog.dismiss();
+                        Toast.makeText(context, "Failed to download due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
     }
 
     private static void saveDownloadedBook(Context context, ProgressDialog progressDialog, byte[] bytes, String nameWithExtension, String bookId) {
-        Log.d(TAG, "saveDownloadedBook: Saving downloaded book...");
-        try
-        {
+        Log.d(TAG_DOWNLOAD, "saveDownloadedBook: Saving downloaded book");
+        try {
             File downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             downloadsFolder.mkdirs();
 
             String filePath = downloadsFolder.getPath() + "/" + nameWithExtension;
 
-            FileOutputStream outputStream = new FileOutputStream(filePath);
-            outputStream.write(bytes);
-            outputStream.close();
-            
+            FileOutputStream out = new FileOutputStream(filePath);
+            out.write(bytes);
+            out.close();
+
             Toast.makeText(context, "Saved to Download Folder", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "saveDownloadedBook: Saved to Download Folder");
+            Log.d(TAG_DOWNLOAD, "saveDownloadedBook: Saved to Download Folder");
             progressDialog.dismiss();
-            
-            increasingDownloadedBook(bookId);
+
+            incrementBookDownloadCount(bookId);
         }
-        catch (Exception e)
-        {
-            Log.d(TAG, "saveDownloadedBook: Failed saving to Download Folder due to " + e.getMessage());
-            Toast.makeText(context, "Failed saving to Download Folder due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        catch (Exception e){
+            Log.d(TAG_DOWNLOAD, "saveDownloadedBook: Failed saving to Download Folder due to "+e.getMessage());
+            Toast.makeText(context, "Failed saving to Download Folder due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
     }
 
-    private static void increasingDownloadedBook(String bookId) {
-        Log.d(TAG, "increasingDownloadedBook: Increasing downloaded book count");
+    private static void incrementBookDownloadCount(String bookId) {
+        Log.d(TAG_DOWNLOAD, "incrementBookDownloadCount: Incrementing Book Download Count");
 
-        // step 1) get previous download count
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
-        reference.child(bookId)
-                .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
+        //Step 1: Get previous download count
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.child(bookId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+                        String downloadsCount = ""+snapshot.child("downloadsCount").getValue();
+                        Log.d(TAG_DOWNLOAD, "onDataChange: Downloads Count: "+downloadsCount);
+
+                        if (downloadsCount.equals("") || downloadsCount.equals("null")){
+                            downloadsCount = "0";
+                        }
+
+                        //convert to long and increment 1
+                        long newDownloadsCount = Long.parseLong(downloadsCount) + 1;
+                        Log.d(TAG_DOWNLOAD, "onDataChange: New Download Count: "+newDownloadsCount);
+
+                        //setup data to update
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("downloadsCount", newDownloadsCount);
+
+                        //Step 2) Update new incremented downloads count to db
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
+                        reference.child(bookId).updateChildren(hashMap)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        String downloadsCount = "" + snapshot.child("downloadsCount").getValue();
-                                        Log.d(TAG, "onDataChange: Downloads count: " + downloadsCount);
-
-                                        if (downloadsCount.equals("") || downloadsCount.equals("null"))
-                                        {
-                                            downloadsCount = "0";
-                                        }
-
-                                        // convert to long and add 1
-                                        long newDownloadsCount = Long.parseLong(downloadsCount) + 1;
-                                        Log.d(TAG, "onDataChange: New download count: " + newDownloadsCount);
-
-                                        // setup data to update
-                                        HashMap<String, Object> hashMap = new HashMap<>();
-                                        hashMap.put("downloadsCount", newDownloadsCount);
-
-                                        // step 2) update new increased downloads count to the database
-                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Books");
-                                        reference1.child(bookId).updateChildren(hashMap)
-                                                .addOnSuccessListener
-                                                        (
-                                                                new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void unused) {
-                                                                        Log.d(TAG, "onSuccess: Downloads count updated.");
-                                                                    }
-                                                                }
-                                                        )
-                                                .addOnFailureListener
-                                                        (
-                                                                new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        Log.d(TAG, "onFailure: Failed to update Downloads count due to " + e.getMessage());
-                                                                    }
-                                                                }
-                                                        );
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG_DOWNLOAD, "onSuccess: Downloads Count updated...");
                                     }
-
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
+                                    public void onFailure(@NonNull  Exception e) {
+                                        Log.d(TAG_DOWNLOAD, "onFailure: Failed to update Downloads Count due to "+e.getMessage());
                                     }
-                                }
-                        );
+                                });
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull  DatabaseError error) {
+
+                    }
+                });
     }
 
-
-
-
-
-    public static void addToFavourite(Context context, String bookId)
-    {
-        // we can add only if the user has logged in
-        //      1) Check if the user has logged in
+    public static void addToFavorite(Context context, String bookId){
+        //we can add only if user is logged in
+        //1)Check if user is logged in
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() == null)
-        {
-            // not logged in => can't add the fav
-            Toast.makeText(context, "You have not logged in yet!", Toast.LENGTH_SHORT).show();
+        if (firebaseAuth.getCurrentUser() == null){
+            //not logged in, cant add to fav
+            Toast.makeText(context, "You're not logged in", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
+        else {
             long timestamp = System.currentTimeMillis();
 
-            // setup data to add in the firebase database of current user for favorite book
+            //setup data to add in firebase db of current user for favorite book
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("bookId", "" + bookId);
-            hashMap.put("timeStamp", "" + timestamp);
+            hashMap.put("bookId", ""+bookId);
+            hashMap.put("timestamp", ""+timestamp);
 
-            // save to the database
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(firebaseAuth.getUid()).child("Favourite").child(bookId)
+            //save to db
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).child("Favorites").child(bookId)
                     .setValue(hashMap)
-                    .addOnSuccessListener
-                            (
-                                    new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(context, "Added to your favourite list!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            )
-                    .addOnFailureListener
-                            (
-                                    new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "Failed to add to favourite due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            );
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(context, "Added to your favorites list...", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Failed to add to favorite due to "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
-    public static void removeFromFavourite(Context context, String bookId)
-    {
-        // we can add and remove if the user has logged in
-        //      1) Check if the user has logged in
+    public static void removeFromFavorite(Context context, String bookId){
+        //we can add remove if user is logged in
+        //1)Check if user is logged in
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() == null)
-        {
-            // not logged in => can't remove from the fav
-            Toast.makeText(context, "You have not logged in yet!", Toast.LENGTH_SHORT).show();
+        if (firebaseAuth.getCurrentUser() == null){
+            //not logged in, cant remove from fav
+            Toast.makeText(context, "You're not logged in", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-            // remove the database
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(firebaseAuth.getUid()).child("Favourite").child(bookId)
+        else {
+
+            //remove from db
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).child("Favorites").child(bookId)
                     .removeValue()
-                    .addOnSuccessListener
-                            (
-                                    new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(context, "Removed to your favourite list!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            )
-                    .addOnFailureListener
-                            (
-                                    new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "Failed to remove to favourite due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            );
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(context, "Removed from your favorites list...", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Failed to remove from favorite due to "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
+
+
 }

@@ -155,12 +155,12 @@ public class PdfDetailActivity extends AppCompatActivity {
                                     if (isInMyFavourite)
                                     {
                                         // in favourite, remove from the favourite list
-                                        MyApplication.removeFromFavourite(PdfDetailActivity.this, bookId);
+                                        MyApplication.removeFromFavorite(PdfDetailActivity.this, bookId);
                                     }
                                     else
                                     {
                                         // not in favourite, add to the favourite list
-                                        MyApplication.addToFavourite(PdfDetailActivity.this, bookId);
+                                        MyApplication.addToFavorite(PdfDetailActivity.this, bookId);
                                     }
                                 }
                             }

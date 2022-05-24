@@ -80,7 +80,7 @@ public class FavoritePdfAdapter extends RecyclerView.Adapter<FavoritePdfAdapter.
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                MyApplication.removeFromFavourite(context, model.getId());  // pass BOOK id, NOT category id
+                                MyApplication.removeFromFavorite(context, model.getId());  // pass BOOK id, NOT category id
                             }
                         }
                 );
