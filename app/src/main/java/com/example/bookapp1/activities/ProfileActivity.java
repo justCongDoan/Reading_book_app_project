@@ -266,7 +266,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         binding.accountTypeTVID.setText(userType);
 
                                         // setting image using glide
-                                        Glide.with(ProfileActivity.this)
+                                        //Glide.with(ProfileActivity.this)
+                                        Glide.with(getApplicationContext())
                                                 .load(profileImage)
                                                 .placeholder(R.drawable.ic_person_gray)
                                                 .into(binding.profileSIVID);
