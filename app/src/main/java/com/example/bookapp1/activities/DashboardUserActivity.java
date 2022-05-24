@@ -1,5 +1,10 @@
 package com.example.bookapp1.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
+import com.example.bookapp1.BookUserFragment;
+import com.example.bookapp1.databinding.ActivityDashboardUserBinding;
+import com.example.bookapp1.models.CategoryModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,22 +23,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.example.bookapp1.BookUserFragment;
-import com.example.bookapp1.databinding.ActivityDashboardUserBinding;
-import com.example.bookapp1.models.CategoryModel;
 
 import java.util.ArrayList;
 
 public class DashboardUserActivity extends AppCompatActivity {
 
-    //to show in tabs
-    public ArrayList<CategoryModel> categoryArrayList;
+    // showing tabs
+    public ArrayList<CategoryModel> categoryModelArrayList;
     public ViewPagerAdapter viewPagerAdapter;
 
-    //view binding
+    // view binding
     private ActivityDashboardUserBinding binding;
 
-    //firebase auth
+    // firebase auth
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -44,151 +44,210 @@ public class DashboardUserActivity extends AppCompatActivity {
         binding = ActivityDashboardUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //init firebase auth
+        // initializing firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
         setupViewPagerAdapter(binding.viewPagerID);
         binding.tabLayoutID.setupWithViewPager(binding.viewPagerID);
 
-        //handle click, logout
-        binding.logoutBtnID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-                startActivity(new Intent(DashboardUserActivity.this, MainActivity.class));
-                finish();
-            }
-        });
+        // handle "click logout button" event
+        binding.logoutBtnID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                firebaseAuth.signOut();
+                                startActivity
+                                        (
+                                                new Intent
+                                                        (
+                                                                DashboardUserActivity.this,
+                                                                MainActivity.class
+                                                        )
+                                        );
+                                finish();
+                            }
+                        }
+                );
 
-        //handle click, open profile
-        binding.userProfileBtnID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DashboardUserActivity.this, ProfileActivity.class));
-            }
-        });
+        // handle click => open profile
+        binding.userProfileBtnID.setOnClickListener
+                (
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity
+                                        (
+                                                new Intent
+                                                        (
+                                                                DashboardUserActivity.this,
+                                                                ProfileActivity.class
+                                                        )
+                                        );
+                            }
+                        }
+                );
     }
 
-    private void setupViewPagerAdapter(ViewPager viewPager){
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this);
+    private void setupViewPagerAdapter(ViewPager viewPager)
+    {
+        viewPagerAdapter = new ViewPagerAdapter
+                (
+                        getSupportFragmentManager(),
+                        FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                        this
+                );
 
-        categoryArrayList = new ArrayList<>();
+        categoryModelArrayList = new ArrayList<>();
 
-        //load categories from firebase
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories"); //be careful of spellings
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                //clear before adding to list
-                categoryArrayList.clear();
+        // load category from firebase
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Categories");
+        reference.addListenerForSingleValueEvent
+                (
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                // clearing data before adding to the list
+                                categoryModelArrayList.clear();
 
-                /*Load Categories - Static e.g. All, Most Viewed, Most Downloaded*/
-                //Add data to models
-                CategoryModel modelAll = new CategoryModel("01", "All", "", 1);
-                CategoryModel modelMostViewed = new CategoryModel("02", "Most Viewed", "", 1);
-                CategoryModel modelMostDownloaded = new CategoryModel("03", "Most Downloaded", "", 1);
-                //add models to list
-                categoryArrayList.add(modelAll);
-                categoryArrayList.add(modelMostViewed);
-                categoryArrayList.add(modelMostDownloaded);
-                //add data to view pager adapter
-                viewPagerAdapter.addFragment(BookUserFragment.newInstance(
-                        ""+ modelAll.getId(),
-                        ""+modelAll.getCategory(),
-                        ""+modelAll.getUid()
-                ), modelAll.getCategory());
-                viewPagerAdapter.addFragment(BookUserFragment.newInstance(
-                        ""+modelMostViewed.getId(),
-                        ""+modelMostViewed.getCategory(),
-                        ""+modelMostViewed.getUid()
-                ), modelMostViewed.getCategory());
-                viewPagerAdapter.addFragment(BookUserFragment.newInstance(
-                        ""+modelMostDownloaded.getId(),
-                        ""+modelMostDownloaded.getCategory(),
-                        ""+modelMostDownloaded.getUid()
-                ), modelMostDownloaded.getCategory());
-                //refresh list
-                viewPagerAdapter.notifyDataSetChanged();
+                                // Load categories - static e.g: All, Most viewed, Most download
 
-                //Now Load from firebase
-                for (DataSnapshot ds: snapshot.getChildren()){
-                    //get data
-                    CategoryModel model = ds.getValue(CategoryModel.class);
-                    //add data to list
-                    categoryArrayList.add(model);
-                    //add data to viewPagerAdapter
-                    viewPagerAdapter.addFragment(
-                            BookUserFragment.newInstance(
-                            ""+model.getId(),
-                            ""+model.getCategory(),
-                            ""+model.getUid()), model.getCategory());
-                    //refresh list
-                    viewPagerAdapter.notifyDataSetChanged();
-                }
+                                // adding data to the models
+                                CategoryModel allCM = new CategoryModel("01", "All", "", 1),
+                                        mostViewedCM = new CategoryModel("02", "Most Viewed", "", 1),
+                                        mostDownloadedCM = new CategoryModel("03", "Most Downloaded", "", 1);
 
+                                // add models to list
+                                categoryModelArrayList.add(allCM);
+                                categoryModelArrayList.add(mostViewedCM);
+                                categoryModelArrayList.add(mostDownloadedCM);
 
-            }
+                                // adding data to the view pager adapter
+                                viewPagerAdapter.addFragment
+                                        (
+                                                BookUserFragment.newInstance
+                                                        (
+                                                                "" + allCM.getId(),
+                                                                "" + allCM.getCategory(),
+                                                                "" + allCM.getUid()
+                                                        ),
+                                                allCM.getCategory()
+                                        );
 
-            @Override
-            public void onCancelled(DatabaseError error) {
+                                // adding data to the view pager adapter
+                                viewPagerAdapter.addFragment
+                                        (
+                                                BookUserFragment.newInstance
+                                                        (
+                                                                "" + mostViewedCM.getId(),
+                                                                "" + mostViewedCM.getCategory(),
+                                                                "" + mostViewedCM.getUid()
+                                                        ),
+                                                mostViewedCM.getCategory()
+                                        );
 
-            }
-        });
+                                // adding data to the view pager adapter
+                                viewPagerAdapter.addFragment
+                                        (
+                                                BookUserFragment.newInstance
+                                                        (
+                                                                "" + mostDownloadedCM.getId(),
+                                                                "" + mostDownloadedCM.getCategory(),
+                                                                "" + mostDownloadedCM.getUid()
+                                                        ),
+                                                mostDownloadedCM.getCategory()
+                                        );
 
-        //set adapter to view pager
+                                // refreshing list
+                                viewPagerAdapter.notifyDataSetChanged();
+
+                                // Now loading from firebase
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                                {
+                                    // get data
+                                    CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
+                                    // add data to the list
+                                    categoryModelArrayList.add(model);
+                                    // add data to the viewPagerAdapter
+                                    viewPagerAdapter.addFragment
+                                            (
+                                                    BookUserFragment.newInstance
+                                                            (
+                                                                    "" + model.getId(),
+                                                                    "" + model.getCategory(),
+                                                                    "" + model.getUid()
+                                                            )
+                                                    , model.getCategory()
+                                            );
+                                    // refresh list
+                                    viewPagerAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        }
+                );
+
+        // set adapter to the view pager
         viewPager.setAdapter(viewPagerAdapter);
-
     }
 
-    public class ViewPagerAdapter extends FragmentPagerAdapter{
-
-        private ArrayList<BookUserFragment> fragmentList = new ArrayList<>();
+    public class ViewPagerAdapter extends FragmentPagerAdapter
+    {
+        private ArrayList<BookUserFragment> fragmentArrayList = new ArrayList<>();
         private ArrayList<String> fragmentTitleList = new ArrayList<>();
         private Context context;
 
-        public ViewPagerAdapter( FragmentManager fm, int behavior, Context context) {
+        public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, Context context) {
             super(fm, behavior);
             this.context = context;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
-            return fragmentList.get(position);
+            return fragmentArrayList.get(position);
         }
 
         @Override
         public int getCount() {
-            return fragmentList.size();
+            return fragmentArrayList.size();
         }
 
-        private void addFragment(BookUserFragment fragment, String title){
-            //add fragment passed as parameter in fragmentList
-            fragmentList.add(fragment);
-            //add title passed as parameter in fragmentTitleList
+        private void addFragment(BookUserFragment fragment, String title)
+        {
+            // add fragment passed as parameter in fragmentArrayList
+            fragmentArrayList.add(fragment);
+            // add title passed as parameter in fragmentTitleList
             fragmentTitleList.add(title);
         }
 
+        @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentTitleList.get(position);
         }
     }
 
-
     private void checkUser() {
-        //get current user
+        // get current user
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser==null){
-            //not logged in
-            binding.subTitleTVID.setText("Not Logged In");
+        if(firebaseUser == null)
+        {
+            // not logged in
+            binding.subTitleTVID.setText("Not logged in");
         }
-        else {
-            //logged in, get user info
+        else
+        {
+            // logged in, get user info
             String email = firebaseUser.getEmail();
-            //set in textview of toolbar
+
+            // set in textView of toolbar
             binding.subTitleTVID.setText(email);
         }
     }
-
 }

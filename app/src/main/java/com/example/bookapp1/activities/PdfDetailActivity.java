@@ -126,7 +126,7 @@ public class PdfDetailActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 Log.d(TAG, "onClick: Checking permission...");
                                 if (ContextCompat.checkSelfPermission(PdfDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                    == PackageManager.PERMISSION_GRANTED)
+                                        == PackageManager.PERMISSION_GRANTED)
                                 {
                                     Log.d(TAG, "onClick: The permission is already granted, the book can now be downloaded!");
                                     MyApplication.downloadBook(PdfDetailActivity.this, "" + bookId, "" + bookTitle, "" + bookUrl);
@@ -155,12 +155,12 @@ public class PdfDetailActivity extends AppCompatActivity {
                                     if (isInMyFavourite)
                                     {
                                         // in favourite, remove from the favourite list
-                                        MyApplication.removeFromFavorite(PdfDetailActivity.this, bookId);
+                                        MyApplication.removeFromFavourite(PdfDetailActivity.this, bookId);
                                     }
                                     else
                                     {
                                         // not in favourite, add to the favourite list
-                                        MyApplication.addToFavorite(PdfDetailActivity.this, bookId);
+                                        MyApplication.addToFavourite(PdfDetailActivity.this, bookId);
                                     }
                                 }
                             }
@@ -402,8 +402,8 @@ public class PdfDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         isInMyFavourite = snapshot.exists();
-                                            // true <=> existed
-                                            // false <=> not existed
+                                        // true <=> existed
+                                        // false <=> not existed
                                         if (isInMyFavourite)
                                         {
                                             // exists in the favourite list
