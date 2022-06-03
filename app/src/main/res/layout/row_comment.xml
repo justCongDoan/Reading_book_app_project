@@ -32,8 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/profileSIV2_ID"
             android:text="Person name"
+            android:fontFamily="@font/lato_italic"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <!--TextView: The date of added comment-->
         <TextView
@@ -43,20 +44,22 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
             android:text="dd/MM/yyyy"
+            android:fontFamily="sans-serif-condensed-medium"
             android:textColor="@color/gray02"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <!--TextView: comment-->
         <TextView
             android:id="@+id/commentTV_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/profileSIV2_ID"
             android:layout_below="@id/nameTV_ID"
             android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/profileSIV2_ID"
             android:text="The comment to be displayed here."
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/gray02"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

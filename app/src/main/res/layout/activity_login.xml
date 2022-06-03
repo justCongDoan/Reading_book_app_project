@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="@drawable/background3"
     tools:context=".activities.LoginActivity">
 
     <RelativeLayout
         android:id="@+id/toolBarRL_ID"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/shape_toolbar01">
+        android:background="@drawable/shape_toolbar01"
+        android:backgroundTint="@color/deep_blue">
 
         <ImageView
             android:id="@+id/iconIV_ID"
@@ -27,7 +28,7 @@
             android:layout_below="@id/iconIV_ID"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="@font/nexa_trial_black"
             android:text="Login to continue"
             android:textColor="@color/white"
             android:textSize="28sp" />
@@ -37,10 +38,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
         android:layout_above="@id/noAccountTV_ID"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="225dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="225dp"
+        android:layout_marginEnd="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,11 +61,12 @@
                     android:background="@drawable/shape_edittext01"
                     android:drawableStart="@drawable/ic_email_gray"
                     android:drawablePadding="10dp"
+                    android:fontFamily="@font/lato_italic"
                     android:hint="Enter your email..."
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray01"/>
+                    android:textColorHint="@color/gray01" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -76,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/emailTil"
                 android:layout_marginTop="5dp"
-                app:passwordToggleEnabled="true"
-                app:hintEnabled="false">
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/passwordET_ID"
@@ -86,11 +88,12 @@
                     android:background="@drawable/shape_edittext01"
                     android:drawableStart="@drawable/ic_lock_gray"
                     android:drawablePadding="10dp"
+                    android:fontFamily="@font/lato_italic"
                     android:hint="Enter your password..."
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray01"/>
+                    android:textColorHint="@color/gray01" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -103,20 +106,22 @@
                 android:layout_below="@+id/passwordTil"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/nexa_trial_heavy"
                 android:padding="5dp"
                 android:text="Forgot password?"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <!--Login Button-->
-            <Button
+            <android.widget.Button
                 android:id="@+id/loginBtnID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/forgotTV_ID"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shape_button01"
+                android:fontFamily="@font/nexa_trial_heavy"
                 android:text="LOGIN"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 
@@ -129,8 +134,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
+        android:padding="20dp"
+        android:textSize="20dp"
         android:text="@string/new_user_sign_up"
-        android:textColor="@color/white" />
+        android:textColor="@color/deep_blue" />
 
 </RelativeLayout>

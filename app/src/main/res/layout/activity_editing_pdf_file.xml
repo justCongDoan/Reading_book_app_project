@@ -11,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar01">
 
         <!--Back button-->
@@ -18,10 +19,10 @@
             android:id="@+id/backIBtn4_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_white"
+            android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:padding="5dp"
-            android:layout_margin="10dp"/>
+            android:src="@drawable/ic_back_white" />
 
         <!--Logo-->
         <ImageView
@@ -30,7 +31,7 @@
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp"
-            android:src="@drawable/logo1"/>
+            android:src="@drawable/logo1" />
 
         <!--Title-->
         <TextView
@@ -40,8 +41,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="Edit book information"
-            android:textSize="24sp"
-            android:textColor="@color/white"/>
+            android:fontFamily="@font/nexa_trial_black"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
@@ -74,6 +76,7 @@
                     android:hint="Enter book title..."
                     android:inputType="textPersonName|textCapSentences"
                     android:padding="10dp"
+                    android:fontFamily="@font/nexa_trial_book"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray01"
                     android:textSize="16sp"/>
@@ -101,6 +104,7 @@
                     android:hint="Enter book description..."
                     android:inputType="textMultiLine|textCapSentences"
                     android:padding="10dp"
+                    android:fontFamily="@font/nexa_trial_book"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray01"
                     android:textSize="16sp"/>
@@ -114,8 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/descriptionTIL1_ID"
                 android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/shape_edittext01"
                 android:drawableStart="@drawable/ic_category_gray"
                 android:drawableEnd="@drawable/ic_arrow_down_gray"
@@ -123,22 +127,24 @@
                 android:gravity="center_vertical"
                 android:hint="Book category"
                 android:padding="10dp"
+                android:fontFamily="@font/nexa_trial_book"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray01"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <!--Update button-->
-            <Button
+            <android.widget.Button
                 android:id="@+id/updateBtn_ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_button01"
                 android:layout_below="@id/categoryTV1_ID"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/shape_button01"
+                android:fontFamily="@font/nexa_trial_heavy"
                 android:text="Update"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 

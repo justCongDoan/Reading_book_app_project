@@ -10,13 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="165dp"
         android:layout_marginTop="48dp"
-        android:background="@drawable/background"/>
+        android:background="@drawable/background" />
 
     <!--Toolbar-->
     <RelativeLayout
         android:id="@+id/toolBarRL6_ID"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar02">
 
         <!--Back button-->
@@ -35,8 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Profile"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/editProfileIBtn_ID"
@@ -46,15 +48,15 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_edit_white"/>
+            android:src="@drawable/ic_edit_white" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_rect01"
-        android:layout_marginTop="180dp"/>
+        android:layout_marginTop="180dp"
+        android:background="@drawable/shape_rect01" />
 
     <!--Profile avatar-->
     <com.google.android.material.imageview.ShapeableImageView
@@ -73,10 +75,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profileSIV_ID"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-black"
         android:text="Profile name"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/profileEmailTV_ID"
@@ -84,6 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profileNameTV_ID"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="abc@example.com"
         android:textColor="@color/black"
         android:textSize="12sp" />
@@ -107,17 +111,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
                 android:text="Account"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="12sp"
-                android:textAlignment="center"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/accountTypeTV_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="default"
+                android:text="Default"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textAlignment="center"/>
@@ -138,6 +143,7 @@
                 android:text="Member"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
                 android:textSize="12sp"
                 android:textAlignment="center"/>
 
@@ -164,6 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favorite books"
+                android:fontFamily="sans-serif-black"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="12sp"
@@ -192,6 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Account status"
+                android:fontFamily="sans-serif-black"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="12sp"
@@ -223,10 +231,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_ID"
-        android:text="Favourite Books"
         android:padding="5dp"
+        android:text="Favourite Books"
+        android:fontFamily="@font/nexa_trial_heavy"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookRV1_ID"
@@ -234,7 +243,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/favBooksListTV_ID"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_pdf_favorite"/>
+        tools:listitem="@layout/row_pdf_favorite" />
 
 </RelativeLayout>
 <!--Friday, May 13th, 2022 - justCongDoan-->

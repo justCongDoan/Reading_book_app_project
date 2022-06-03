@@ -12,6 +12,7 @@
         android:id="@+id/toolBarRL3_ID"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar02">
 
         <!--Back button-->
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/titleTV2_ID"
             android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="Category"
             android:textColor="@color/white" />
 
@@ -61,6 +63,7 @@
         android:drawablePadding="10dp"
         android:hint="Search a book..."
         android:padding="10dp"
+        android:fontFamily="@font/nexa_trial_heavy"
         android:textColor="@color/black"
         android:textColorHint="@color/gray02" />
 

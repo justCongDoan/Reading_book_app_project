@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background2"
+    android:background="@drawable/background3"
     tools:context=".activities.SplashActivity">
 
     <ImageView
@@ -20,7 +20,7 @@
         android:text="Book App"
         android:textSize="24sp"
         android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/nexa_trial_heavy"
         android:textColor="@color/white"/>
 
 </LinearLayout>

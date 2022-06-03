@@ -11,6 +11,7 @@
         android:id="@+id/toolBarRL5_ID"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar02">
 
         <!--Back button-->
@@ -32,7 +33,7 @@
             android:layout_marginTop="8dp"
             android:text="Read book"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <!--Subtitle i.e page number-->
         <TextView
@@ -42,8 +43,9 @@
             android:layout_below="@id/toolbarTitleTV_ID"
             android:layout_centerHorizontal="true"
             android:text="N/N"
+            android:fontFamily="sans-serif-condensed-medium"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

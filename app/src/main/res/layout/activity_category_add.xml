@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar01">
 
         <ImageButton
@@ -30,7 +31,7 @@
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp"
-            android:src="@drawable/logo1"/>
+            android:src="@drawable/logo1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,10 +39,10 @@
             android:layout_below="@id/iconIV1_ID"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="@font/nexa_trial_black"
             android:text="Add a new Category"
-            android:textSize="28sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
     </RelativeLayout>
 
@@ -64,22 +65,24 @@
             android:hint="Category Title"
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
+            android:fontFamily="@font/nexa_trial_book"
             android:textColor="@color/black"
             android:textColorHint="@color/gray01"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--Add category button-->
-    <Button
+    <android.widget.Button
         android:id="@+id/submitToAddCategoryBtn_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape_button01"
-        android:text="Add"
         android:layout_below="@id/categoryTil_ID"
-        android:textColor="@color/white"/>
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/shape_button01"
+        android:fontFamily="@font/nexa_trial_heavy"
+        android:text="Add"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

@@ -12,6 +12,7 @@
         android:id="@+id/toolBarRL1_ID"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:backgroundTint="@color/deep_blue"
         android:background="@drawable/shape_toolbar02">
 
         <!--ImageButton: Open profile-->
@@ -31,6 +32,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="Dashboard - Admin"
+            android:fontFamily="@font/nexa_trial_black"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -41,6 +43,7 @@
             android:layout_below="@id/titleTV_ID"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="admin@example.com"
             android:textColor="@color/white" />
 
@@ -97,7 +100,7 @@
         android:layout_marginBottom="10dp">
 
         <!--Add category-->
-        <Button
+        <android.widget.Button
             android:id="@+id/addCategoryBtn_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,6 +109,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/shape_button01"
             android:minHeight="50dp"
+            android:fontFamily="@font/nexa_trial_heavy"
             android:textAllCaps="false"
             android:textColor="@color/white"/>
 
@@ -115,9 +119,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_pdf_add_white"
-            android:tint="@color/white"
+            android:tint="@color/black"
             app:fabCustomSize="50dp"
-            android:backgroundTint="@color/purple_500"/>
+            android:backgroundTint="@color/red"/>
 
     </LinearLayout>
 
