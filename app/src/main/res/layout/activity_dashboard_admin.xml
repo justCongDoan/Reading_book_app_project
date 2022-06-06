@@ -114,14 +114,16 @@
             android:textColor="@color/white"/>
 
         <!--Add PDF file-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/addPdfFileFab_ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_pdf_add_white"
-            android:tint="@color/black"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/im_pdf"
             app:fabCustomSize="50dp"
-            android:backgroundTint="@color/red"/>
+            android:adjustViewBounds="true"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@color/deep_blue"/>
 
     </LinearLayout>
 

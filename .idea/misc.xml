@@ -13,16 +13,54 @@
         <entry key="..\:/All code(just for urgent)/BookApp_NotChange/app/src/main/res/layout/activity_splash.xml" value="0.12158054711246201" />
         <entry key="..\:/All code(just for urgent)/BookApp_NotChange/app/src/main/res/layout/row_pdf_admin.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_add_comment_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_arrow_down_gray.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_attach_file_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_back_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_book_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_download_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_edit_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_email_gray.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_favorite_border_white.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_favorite_white.xml" value="0.2035" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2035" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_launcher_book_background.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_more_vert_black.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/ic_person_gray.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_button01.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_button02.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_button03.xml" value="0.2035" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_edittext01.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_rect01.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_rect02.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_toolbar01.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/shape_toolbar02.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/tab_background_selected.xml" value="0.2035" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/tab_background_unselected.xml" value="0.2035" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/drawable/tab_selector.xml" value="0.2035" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_adding_pdf_file.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_category_add.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_dashboard_user.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_editing_pdf_file.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_pdf_detail.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_pdf_list_admin.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_pdf_view.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/add_comment_dialog.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/fragment_book_user.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/row_category.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/row_comment.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/row_pdf_admin.xml" value="0.25" />
         <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/row_pdf_favorite.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/layout/row_pdf_user.xml" value="0.25" />
+        <entry key="..\:/All code(just for urgent)/Reading_book_app_project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2035" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/ic_add_comment_black.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/ic_add_comment_white.xml" value="0.1" />
         <entry key="..\:/Users/congd/AndroidStudioProjects/BookApp1/app/src/main/res/drawable/ic_back_white.xml" value="0.1" />

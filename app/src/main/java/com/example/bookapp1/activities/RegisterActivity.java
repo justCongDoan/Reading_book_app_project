@@ -40,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         // region note no.1
         /*
-         * Add following dependencies of firebase:
          *  1) Firebase Auth
          *  2) Firebase realtime database
          *  3) Firebase Storage

@@ -1,5 +1,6 @@
 package com.example.bookapp1.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DashboardUserActivity extends AppCompatActivity {
+
+    // progress dialog
+    private ProgressDialog progressDialog;
 
     // showing tabs
     public ArrayList<CategoryModel> categoryModelArrayList;

@@ -24,7 +24,7 @@
             <com.github.barteksc.pdfviewer.PDFView
                 android:id="@+id/pdfView_ID"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <!--Progress bar-->
             <ProgressBar
