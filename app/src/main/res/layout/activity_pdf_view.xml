@@ -33,6 +33,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="Read book"
+            android:fontFamily="@font/nexa_trial_black"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

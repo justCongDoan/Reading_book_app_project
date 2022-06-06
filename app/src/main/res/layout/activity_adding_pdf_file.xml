@@ -83,6 +83,7 @@
             android:hint="Enter book title..."
             android:inputType="textPersonName|textCapWords"
             android:fontFamily="@font/nexa_trial_book"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textColorHint="@color/gray01"/>
 
@@ -110,6 +111,7 @@
             android:hint="Enter description..."
             android:inputType="textMultiLine|textCapSentences"
             android:fontFamily="@font/nexa_trial_book"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textColorHint="@color/gray01"/>
 
@@ -129,6 +131,7 @@
         android:drawableEnd="@drawable/ic_arrow_down_gray"
         android:drawablePadding="10dp"
         android:fontFamily="@font/nexa_trial_book"
+        android:textStyle="bold"
         android:gravity="center_vertical"
         android:hint="Select category..."
         android:padding="10dp"

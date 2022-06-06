@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="Dashboard - Admin"
             android:fontFamily="@font/nexa_trial_black"
+            android:text="Dashboard - Admin"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -65,14 +65,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolBarRL1_ID"
-        android:hint="Search category..."
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/ic_search_gray"
-        android:padding="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/white"
-        android:textColorHint="@color/gray01"/>
+        android:drawableStart="@drawable/ic_search_gray"
+        android:fontFamily="@font/nexa_trial_heavy"
+        android:hint="Search category..."
+        android:padding="10dp"
+        android:textColorHint="@color/gray01" />
 
     <!--Categories-->
 

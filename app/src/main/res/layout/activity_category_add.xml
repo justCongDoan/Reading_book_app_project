@@ -66,6 +66,7 @@
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
             android:fontFamily="@font/nexa_trial_book"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textColorHint="@color/gray01"/>
 

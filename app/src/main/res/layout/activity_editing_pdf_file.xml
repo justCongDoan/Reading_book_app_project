@@ -40,8 +40,8 @@
             android:layout_below="@id/iconIV3_ID"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="Edit book information"
             android:fontFamily="@font/nexa_trial_black"
+            android:text="Edit book information"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -79,6 +79,7 @@
                     android:fontFamily="@font/nexa_trial_book"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray01"
+                    android:textStyle="bold"
                     android:textSize="16sp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -105,6 +106,7 @@
                     android:inputType="textMultiLine|textCapSentences"
                     android:padding="10dp"
                     android:fontFamily="@font/nexa_trial_book"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray01"
                     android:textSize="16sp"/>
@@ -124,10 +126,11 @@
                 android:drawableStart="@drawable/ic_category_gray"
                 android:drawableEnd="@drawable/ic_arrow_down_gray"
                 android:drawablePadding="10dp"
+                android:fontFamily="@font/nexa_trial_book"
+                android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:hint="Book category"
                 android:padding="10dp"
-                android:fontFamily="@font/nexa_trial_book"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray01"
                 android:textSize="16sp" />

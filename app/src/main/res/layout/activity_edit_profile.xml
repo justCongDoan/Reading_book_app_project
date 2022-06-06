@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/nexa_trial_black"
             android:text="Edit profile"
             android:textColor="@color/white"
             android:textSize="28sp" />
@@ -54,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="225dp">
+        android:layout_marginTop="225dp"
+        android:layout_marginEnd="30dp">
 
         <!--EditText: Input name-->
         <com.google.android.material.textfield.TextInputLayout
@@ -71,12 +71,13 @@
                 android:background="@drawable/shape_edittext01"
                 android:drawableStart="@drawable/ic_person_gray"
                 android:drawablePadding="10dp"
-                android:padding="10dp"
-                android:inputType="textPersonName|textCapWords"
-                android:hint="Enter name..."
                 android:fontFamily="@font/nexa_trial_book"
+                android:hint="Enter name..."
+                android:inputType="textPersonName|textCapWords"
+                android:padding="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray01"/>
+                android:textColorHint="@color/gray01"
+                android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
