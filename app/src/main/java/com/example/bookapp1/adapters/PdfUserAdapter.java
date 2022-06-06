@@ -19,6 +19,9 @@ import com.example.bookapp1.databinding.RowPdfUserBinding;
 import com.example.bookapp1.filters.PdfUserFilter;
 import com.example.bookapp1.models.PdfModel;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ChasingDots;
+import com.github.ybq.android.spinkit.style.Wave;
 
 import java.util.ArrayList;
 
@@ -133,6 +136,9 @@ public class PdfUserAdapter extends RecyclerView.Adapter<PdfUserAdapter.HolderPd
             dateTV = binding.dateTVID;
             pdfView = binding.pdfViewID;
             progressBar = binding.progressBarID;
+
+            /*Sprite wave = new ChasingDots();
+            progressBar.setIndeterminateDrawable(wave);*/
         }
     }
 }

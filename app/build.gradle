@@ -46,14 +46,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.4'
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.firebase:firebase-firestore:24.1.2'
 
     //pdf view library
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
-    implementation 'com.google.firebase:firebase-firestore:24.1.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    //gif
+    implementation "com.airbnb.android:lottie:5.2.0"
+
+    //progress bar
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

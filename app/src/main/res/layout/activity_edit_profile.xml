@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/nexa_trial_black"
+            android:fontFamily="sans-serif-black"
             android:text="Edit profile"
             android:textColor="@color/white"
             android:textSize="28sp" />

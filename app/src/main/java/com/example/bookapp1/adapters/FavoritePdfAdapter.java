@@ -18,6 +18,9 @@ import com.example.bookapp1.activities.PdfDetailActivity;
 import com.example.bookapp1.databinding.RowPdfFavoriteBinding;
 import com.example.bookapp1.models.PdfModel;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ChasingDots;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -172,6 +175,10 @@ public class FavoritePdfAdapter extends RecyclerView.Adapter<FavoritePdfAdapter.
             // initializing UI view of row_pdf_favorite.xml
             pdfView = binding.pdfView3ID;
             progressBar = binding.progressBar3ID;
+
+           /* Sprite foldingCube = new Wave();
+            progressBar.setIndeterminateDrawable(foldingCube);*/
+
             titleTV = binding.titleTV6ID;
             descriptionTV = binding.descriptionTV3ID;
             removeFavIBtn = binding.removeFavBookIBtnID;

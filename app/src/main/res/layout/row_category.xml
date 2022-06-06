@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Category Title"
-            android:fontFamily="@font/lato_italic"
+            android:fontFamily="sans-serif-condensed-medium"
             android:layout_weight="1"
             android:textColor="@color/black"/>
 

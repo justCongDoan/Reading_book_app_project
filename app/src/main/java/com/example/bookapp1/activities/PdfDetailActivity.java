@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +25,9 @@ import com.example.bookapp1.adapters.CommentAdapter;
 import com.example.bookapp1.databinding.ActivityPdfDetailBinding;
 import com.example.bookapp1.databinding.AddCommentDialogBinding;
 import com.example.bookapp1.models.CommentModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ChasingDots;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,11 +62,19 @@ public class PdfDetailActivity extends AppCompatActivity {
     // create an adapter to set to the recyclerView
     private CommentAdapter commentAdapter;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPdfDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //Progress Bar
+//        progressBar = binding.progressBar1ID;
+//
+//        Sprite foldingCube = new ChasingDots();
+//        progressBar.setIndeterminateDrawable(foldingCube);
 
         // getting data from intent (bookId for example)
         Intent intent = getIntent();

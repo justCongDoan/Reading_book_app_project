@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.ProfileActivity">
 
+    <!--Toolbar-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="400dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/background" />
 
-    <!--Toolbar-->
     <RelativeLayout
         android:id="@+id/toolBarRL6_ID"
         android:layout_width="match_parent"
@@ -52,22 +52,25 @@
 
     </RelativeLayout>
 
+    <!--Profile avatar-->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="180dp"
         android:background="@drawable/shape_rect01" />
 
-    <!--Profile avatar-->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileSIV_ID"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
-        android:background="@color/white"
-        app:shapeAppearance="@style/roundedCornersImageStyle"
-        android:src="@drawable/ic_person_gray"/>
+        android:background="@color/turquoise"
+        android:padding="5dp"
+        android:src="@drawable/ic_person_white"
+        app:shapeAppearance="@style/circleImageStyle"
+        app:strokeColor="@color/white"
+        app:strokeWidth="5dp" />
 
     <TextView
         android:id="@+id/profileNameTV_ID"
@@ -231,9 +234,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_ID"
+        android:fontFamily="@font/nexa_trial_heavy"
         android:padding="5dp"
         android:text="Favourite Books"
-        android:fontFamily="@font/nexa_trial_heavy"
         android:textColor="@color/black"
         android:textStyle="bold" />
 

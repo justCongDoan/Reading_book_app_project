@@ -24,6 +24,9 @@ import com.example.bookapp1.databinding.RowPdfAdminBinding;
 import com.example.bookapp1.filters.PdfAdminFilter;
 import com.example.bookapp1.models.PdfModel;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ChasingDots;
+import com.github.ybq.android.spinkit.style.Wave;
 
 import java.util.ArrayList;
 
@@ -216,6 +219,10 @@ public class PdfAdminAdapter extends RecyclerView.Adapter<PdfAdminAdapter.Holder
             // initializing UI views
             pdfView = binding.pdfViewID;
             progressBar = binding.progressBarID;
+
+            /*Sprite wave = new ChasingDots();
+            progressBar.setIndeterminateDrawable(wave);*/
+
             titleTV = binding.titleTV1ID;
             descriptionTV = binding.descriptionTV1ID;
             categoryTV = binding.categoryTV2ID;
