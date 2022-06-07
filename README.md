@@ -2,9 +2,9 @@
 ## Thông tin nhóm:
 **Nhóm 6**
 *Danh sách thành viên (3 thành viên):*
--Nguyễn Thanh Sang - 20521833 (Nhóm trưởng)
--Nguyễn Công Đoàn - 20520447
--Nguyễn Như Từ - 20522098
+#### Nguyễn Thanh Sang - 20521833 (Nhóm trưởng)
+#### Nguyễn Công Đoàn - 20520447
+#### Nguyễn Như Từ - 20522098
 *Lớp:* SE114.M22.PMCL 
 ## Link github:
 [BOOK_APP_JAVA_ANDROID](https://github.com/justCongDoan/Reading_book_app_project)
