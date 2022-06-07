@@ -1,4 +1,4 @@
-# Reading_book_app_project
+# Dự án xây dựng app đọc sách trên Android 
 ## Thông tin nhóm:  
 **Nhóm 6**  
 *Danh sách thành viên (3 thành viên):*  
