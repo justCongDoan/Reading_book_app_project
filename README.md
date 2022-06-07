@@ -9,7 +9,7 @@ Nguyễn Như Từ - 20522098
 ## Link github:  
 [BOOK_APP_JAVA_ANDROID](https://github.com/justCongDoan/Reading_book_app_project)
 ## Hướng dẫn cài đặt:
-*Bước 1:* Tải source code từ github (có 2 cách):  
+*Tải source code từ github (có 2 cách):*   
 ***Cách 1*** Tải file zip:  
 Vào link github của dự án (https://github.com/justCongDoan/Reading_book_app_project), mở phần **code** và bấm **Download ZIP**.  
 ***Cách 2***   
