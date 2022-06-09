@@ -13,7 +13,8 @@ Nguyễn Như Từ - 20522098
 ***Cách 1:*** Tải file zip:  
 Vào link github của dự án (https://github.com/justCongDoan/Reading_book_app_project), mở phần **code** và bấm **Download ZIP**.  
 ***Cách 2:*** Git clone:  
-Sử dụng git bash ở thư mục muốn cài đặt và copy câu lệnh: git clone https://github.com/justCongDoan/Reading_book_app_project.git  
+Sử dụng git bash ở thư mục muốn cài đặt và copy câu lệnh:   
+    git clone https://github.com/justCongDoan/Reading_book_app_project.git  
 ## Run source code:   
 Mở file source code (đã cài đặt từ Github) bằng android studio, sau đó chọn thiết bị và run app (Shift F10)  
 ***Tài khoản mẫu cho user:***  
