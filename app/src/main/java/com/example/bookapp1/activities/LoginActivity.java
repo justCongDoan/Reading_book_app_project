@@ -2,8 +2,12 @@ package com.example.bookapp1.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -46,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Take your time while waiting...");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        //Dont have account
+        String text = "Don't have an account? Sign up!";
+        SpannableString ss = new SpannableString(text);
+        StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        ss.setSpan(boldSpan, 23, 31,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        binding.noAccountTVID.setText(ss);
 
         // handle clicking "go to register screen" event
         binding.noAccountTVID.setOnClickListener

@@ -55,7 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
             android:padding="5dp"
             android:src="@drawable/ic_attach_file_white" />
@@ -131,13 +134,13 @@
         android:drawableEnd="@drawable/ic_arrow_down_gray"
         android:drawablePadding="10dp"
         android:fontFamily="@font/nexa_trial_book"
-        android:textStyle="bold"
         android:gravity="center_vertical"
         android:hint="Select category..."
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray01"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <!--Upload Pdf button-->
     <Button

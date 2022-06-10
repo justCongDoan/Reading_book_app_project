@@ -47,12 +47,6 @@ public class PdfViewActivity extends AppCompatActivity {
         binding = ActivityPdfViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //progressBar
-//        progressBar = binding.progressBar2ID;
-//
-//        Sprite foldingCube = new Wave();
-//        progressBar.setIndeterminateDrawable(foldingCube);
-
         // get bookId from intent
         Intent intent = getIntent();
         bookId = intent.getStringExtra("bookId");
@@ -115,8 +109,7 @@ public class PdfViewActivity extends AppCompatActivity {
                                                 //      false - vertical
                                                 .swipeHorizontal(false)
                                                 .onPageChange
-                                                        (
-                                                                new OnPageChangeListener() {
+                                                        (new OnPageChangeListener() {
                                                                     @Override
                                                                     public void onPageChanged(int page, int pageCount) {
                                                                         // set current and total pages in toolbar subtitle
@@ -127,8 +120,7 @@ public class PdfViewActivity extends AppCompatActivity {
                                                                 }
                                                         )
                                                 .onError
-                                                        (
-                                                                new OnErrorListener() {
+                                                        (new OnErrorListener() {
                                                                     @Override
                                                                     public void onError(Throwable t) {
                                                                         Log.d(TAG, "onError: " + t.getMessage());
@@ -137,15 +129,15 @@ public class PdfViewActivity extends AppCompatActivity {
                                                                 }
                                                         )
                                                 .onPageError
-                                                        (
-                                                                new OnPageErrorListener() {
+                                                        (new OnPageErrorListener() {
                                                                     @Override
                                                                     public void onPageError(int page, Throwable t) {
                                                                         Log.d(TAG, "onPageError: " + t.getMessage());
                                                                         Toast.makeText(PdfViewActivity.this, "Error on page " + page + " " + t.getMessage(), Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
-                                                        ).load();
+                                                        )
+                                                .load();
                                         binding.progressBar2ID.setVisibility(View.GONE);
                                     }
                                 }

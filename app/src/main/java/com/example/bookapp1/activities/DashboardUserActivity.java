@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -31,6 +32,10 @@ public class DashboardUserActivity extends AppCompatActivity {
 
     // progress dialog
     private ProgressDialog progressDialog;
+
+    //boolean
+    private boolean isTrue;
+    private boolean isFalse;
 
     // showing tabs
     public ArrayList<CategoryModel> categoryModelArrayList;
@@ -63,12 +68,8 @@ public class DashboardUserActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 firebaseAuth.signOut();
                                 startActivity
-                                        (
-                                                new Intent
-                                                        (
-                                                                DashboardUserActivity.this,
-                                                                MainActivity.class
-                                                        )
+                                        (new Intent
+                                                (DashboardUserActivity.this, MainActivity.class)
                                         );
                                 finish();
                             }
@@ -76,18 +77,14 @@ public class DashboardUserActivity extends AppCompatActivity {
                 );
 
         // handle click => open profile
-        binding.userProfileBtnID.setOnClickListener
+        binding.userProfileBtnID1.setOnClickListener
                 (
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startActivity
-                                        (
-                                                new Intent
-                                                        (
-                                                                DashboardUserActivity.this,
-                                                                ProfileActivity.class
-                                                        )
+                                        (new Intent
+                                                (DashboardUserActivity.this, ProfileActivity.class)
                                         );
                             }
                         }
@@ -211,7 +208,6 @@ public class DashboardUserActivity extends AppCompatActivity {
             this.context = context;
         }
 
-        @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragmentArrayList.get(position);
@@ -230,11 +226,14 @@ public class DashboardUserActivity extends AppCompatActivity {
             fragmentTitleList.add(title);
         }
 
-        @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentTitleList.get(position);
         }
+    }
+
+    public int getVisibility() {
+        return isTrue && !isFalse ? View.GONE : View.VISIBLE;
     }
 
     private void checkUser() {
@@ -244,6 +243,8 @@ public class DashboardUserActivity extends AppCompatActivity {
         {
             // not logged in
             binding.subTitleTVID.setText("Not logged in");
+
+            binding.userProfileBtnID1.setVisibility(View.VISIBLE);
         }
         else
         {

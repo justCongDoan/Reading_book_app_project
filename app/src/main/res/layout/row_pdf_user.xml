@@ -91,10 +91,10 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 MB"
-            android:layout_toEndOf="@id/pdfRL_ID"
             android:layout_alignParentBottom="true"
-            android:maxLines="1"/>
+            android:layout_toEndOf="@id/pdfRL_ID"
+            android:maxLines="1"
+            android:text="13 MB" />
 
         <TextView
             android:id="@+id/dateTV_ID"

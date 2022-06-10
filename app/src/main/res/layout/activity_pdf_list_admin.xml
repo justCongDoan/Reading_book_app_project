@@ -32,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="Books"
             android:fontFamily="@font/nexa_trial_black"
+            android:text="Books"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -62,12 +62,12 @@
         android:background="@color/white"
         android:drawableStart="@drawable/ic_search_gray"
         android:drawablePadding="10dp"
-        android:fontFamily="@font/nexa_trial_book"
-        android:textStyle="bold"
+        android:fontFamily="@font/nexa_trial_heavy"
         android:hint="Search a book..."
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textColorHint="@color/gray02" />
+        android:textColorHint="@color/gray02"
+        android:textStyle="bold" />
 
     <!--Pdf list-->
     <androidx.recyclerview.widget.RecyclerView

@@ -40,10 +40,10 @@
 
     <!--All contents inside the scroll view-->
     <androidx.core.widget.NestedScrollView
-        android:layout_above="@id/bookOptionsLL_ID"
-        android:layout_below="@id/toolBarRL4_ID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bookOptionsLL_ID"
+        android:layout_below="@id/toolBarRL4_ID"
         android:padding="10dp">
 
         <LinearLayout
@@ -126,16 +126,15 @@
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
                     <!--Date row-->
-                    <TableRow
-                        android:layout_marginTop="5dp">
+                    <TableRow android:layout_marginTop="5dp">
 
                         <TextView
                             android:id="@+id/dateLabelTV_ID"
@@ -145,23 +144,22 @@
                             android:layout_marginEnd="5dp"
                             android:fontFamily="@font/nexa_trial_heavy"
                             android:text="Date"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/dateTV_ID"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
                     <!--Size row-->
-                    <TableRow
-                        android:layout_marginTop="5dp">
+                    <TableRow android:layout_marginTop="5dp">
 
                         <TextView
                             android:id="@+id/sizeLabelTV_ID"
@@ -170,23 +168,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:text="Size"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/sizeTV_ID"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
                     <!--View count row-->
-                    <TableRow
-                        android:layout_marginTop="5dp">
+                    <TableRow android:layout_marginTop="5dp">
 
                         <TextView
                             android:id="@+id/viewsLabelTV_ID"
@@ -195,23 +192,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:text="Views"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/viewsTV_ID"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
                     <!--Download count row-->
-                    <TableRow
-                        android:layout_marginTop="5dp">
+                    <TableRow android:layout_marginTop="5dp">
 
                         <TextView
                             android:id="@+id/downloadLabelTV_ID"
@@ -220,23 +216,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:text="Downloads"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/downloadTV_ID"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
                     <!--Number of pages-->
-                    <TableRow
-                        android:layout_marginTop="5dp">
+                    <TableRow android:layout_marginTop="5dp">
 
                         <TextView
                             android:id="@+id/pagesLabelTV_ID"
@@ -245,17 +240,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:text="Pages"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/pagesTV_ID"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
                             android:text="N/A"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                     </TableRow>
 
@@ -271,14 +266,13 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nexa_trial_heavy"
                 android:text="Book's description"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray03"/>
-
+                android:background="@color/gray03" />
 
 
             <RelativeLayout
@@ -303,7 +297,7 @@
                     android:layout_alignParentEnd="true"
                     android:background="@android:color/transparent"
                     android:padding="5dp"
-                    android:src="@drawable/ic_add_comment_white"/>
+                    android:src="@drawable/ic_add_comment_white" />
 
                 <!--RecyclerView-->
                 <androidx.recyclerview.widget.RecyclerView

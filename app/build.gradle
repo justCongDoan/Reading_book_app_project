@@ -28,7 +28,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    //enable view binding (optinal, you may use findviewbyid)
+    //enable view binding (instead of findviewbyid)
     buildFeatures{
         viewBinding true
     }
@@ -53,6 +53,7 @@ dependencies {
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.databinding:baseLibrary:3.2.0-alpha11'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     //gif

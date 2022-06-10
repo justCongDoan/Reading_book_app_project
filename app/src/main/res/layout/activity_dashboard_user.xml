@@ -17,7 +17,7 @@
 
         <!--ImageButton: Open profile-->
         <ImageButton
-            android:id="@+id/userProfileBtn_ID"
+            android:id="@+id/userProfileBtnID1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
