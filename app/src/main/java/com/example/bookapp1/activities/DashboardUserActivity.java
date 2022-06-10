@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.bookapp1.BookUserFragment;
+import com.example.bookapp1.R;
 import com.example.bookapp1.databinding.ActivityDashboardUserBinding;
 import com.example.bookapp1.models.CategoryModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,10 +35,6 @@ public class DashboardUserActivity extends AppCompatActivity {
 
     // progress dialog
     private ProgressDialog progressDialog;
-
-    //boolean
-    private boolean isTrue;
-    private boolean isFalse;
 
     // showing tabs
     public ArrayList<CategoryModel> categoryModelArrayList;
@@ -233,7 +232,7 @@ public class DashboardUserActivity extends AppCompatActivity {
     }
 
     public int getVisibility() {
-        return isTrue && !isFalse ? View.GONE : View.VISIBLE;
+        return View.VISIBLE;
     }
 
     private void checkUser() {
@@ -244,10 +243,12 @@ public class DashboardUserActivity extends AppCompatActivity {
             // not logged in
             binding.subTitleTVID.setText("Not logged in");
 
-            binding.userProfileBtnID1.setVisibility(View.VISIBLE);
+            binding.userProfileBtnID1.setVisibility(View.GONE);
         }
         else
         {
+            binding.userProfileBtnID1.setVisibility(View.VISIBLE);
+
             // logged in, get user info
             String email = firebaseUser.getEmail();
 

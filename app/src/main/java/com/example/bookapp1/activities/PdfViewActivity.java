@@ -138,6 +138,7 @@ public class PdfViewActivity extends AppCompatActivity {
                                                                 }
                                                         )
                                                 .load();
+
                                         binding.progressBar2ID.setVisibility(View.GONE);
                                     }
                                 }

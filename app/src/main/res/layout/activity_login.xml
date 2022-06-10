@@ -141,7 +141,7 @@
         android:layout_centerHorizontal="true"
         android:padding="20dp"
         android:text="@string/new_user_sign_up"
-        android:textColor="@color/deep_blue"
+        android:textColor="@color/white"
         android:textSize="20dp"
         app:fontFamily="@font/nexa_book_italic" />
 

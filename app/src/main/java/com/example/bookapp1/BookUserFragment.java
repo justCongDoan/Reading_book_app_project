@@ -222,7 +222,6 @@ public class BookUserFragment extends Fragment {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         }
                 );
