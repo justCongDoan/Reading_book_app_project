@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // progress dialog
     private ProgressDialog progressDialog;
+
     
     private static final String TAG = "PROFILE_TAG";
 

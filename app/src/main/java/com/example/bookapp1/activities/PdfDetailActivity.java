@@ -70,12 +70,6 @@ public class PdfDetailActivity extends AppCompatActivity {
         binding = ActivityPdfDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //Progress Bar
-//        progressBar = binding.progressBar1ID;
-//
-//        Sprite foldingCube = new ChasingDots();
-//        progressBar.setIndeterminateDrawable(foldingCube);
-
         // getting data from intent (bookId for example)
         Intent intent = getIntent();
         bookId = intent.getStringExtra("bookId");
