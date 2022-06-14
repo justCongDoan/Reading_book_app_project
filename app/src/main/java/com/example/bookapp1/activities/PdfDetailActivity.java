@@ -94,8 +94,6 @@ public class PdfDetailActivity extends AppCompatActivity {
         // increase book view count, whenever this page starts
         MyApplication.increasingBookViewCount(bookId);
 
-
-
         // go back
         binding.backIBtn5ID.setOnClickListener
                 (
@@ -113,11 +111,7 @@ public class PdfDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 // create activity for reading book (pdf file)
-                                Intent intent1 = new Intent
-                                        (
-                                                PdfDetailActivity.this,
-                                                PdfViewActivity.class
-                                        );
+                                Intent intent1 = new Intent(PdfDetailActivity.this, PdfViewActivity.class);
                                 intent1.putExtra("bookId", bookId);
                                 startActivity(intent1);
                             }
