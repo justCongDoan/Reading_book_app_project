@@ -12,8 +12,8 @@
         android:id="@+id/toolBarRL2_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/deep_blue"
-        android:background="@drawable/shape_toolbar01">
+        android:background="@drawable/shape_toolbar01"
+        android:backgroundTint="@color/deep_blue">
 
         <!--Back button-->
         <ImageButton
