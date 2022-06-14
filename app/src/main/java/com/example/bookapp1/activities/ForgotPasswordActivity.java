@@ -87,17 +87,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // begin sending recovery
         firebaseAuth.sendPasswordResetEmail(email)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // sent
-                                        progressDialog.dismiss();
-                                        Toast.makeText(ForgotPasswordActivity.this, "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // sent
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                        "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
+                    }})
                 .addOnFailureListener
                         (
                                 new OnFailureListener() {

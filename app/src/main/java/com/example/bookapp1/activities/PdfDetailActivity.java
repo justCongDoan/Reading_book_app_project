@@ -336,59 +336,47 @@ public class PdfDetailActivity extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
         reference.child(bookId)
                 .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        // get data
-                                        bookTitle = "" + snapshot.child("title").getValue();
-                                        String description = "" + snapshot.child("description").getValue(),
-                                                categoryId = "" + snapshot.child("categoryId").getValue(),
-                                                viewsCount = "" + snapshot.child("viewsCount").getValue(),
-                                                downloadsCount = "" + snapshot.child("downloadsCount").getValue();
-                                        bookUrl = "" + snapshot.child("url").getValue();
-                                        String timeStamp = "" + snapshot.child("timeStamp").getValue();
-
-                                        // required data is loaded, show download button
-                                        binding.downloadBookBtnID.setVisibility(View.VISIBLE);
-
-                                        // formatting data
-                                        String date = MyApplication.timestampFormat(Long.parseLong(timeStamp));
-
-                                        MyApplication.loadCategory
-                                                (
-                                                        "" + categoryId,
-                                                        binding.categoryTV3ID
-                                                );
-                                        MyApplication.loadPdfFromUrlSinglePage
-                                                (
+                        (new ValueEventListener() {@Override
+                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // get data
+                            bookTitle = "" + snapshot.child("title").getValue();
+                            String description = "" + snapshot.child("description").getValue(),
+                                    categoryId = "" + snapshot.child("categoryId").getValue(),
+                                    viewsCount = "" + snapshot.child("viewsCount").getValue(),
+                                    downloadsCount = "" + snapshot.child("downloadsCount").getValue();
+                            bookUrl = "" + snapshot.child("url").getValue();
+                            String timeStamp = "" + snapshot.child("timeStamp").getValue();
+                            // required data is loaded, show download button
+                            binding.downloadBookBtnID.setVisibility(View.VISIBLE);
+                            // formatting data
+                            String date = MyApplication.timestampFormat(Long.parseLong(timeStamp));
+                            MyApplication.loadCategory("" + categoryId, binding.categoryTV3ID);
+                            MyApplication.loadPdfFromUrlSinglePage(
                                                         "" + bookUrl,
                                                         "" + bookTitle,
                                                         binding.pdfView1ID,
                                                         binding.progressBar1ID,
                                                         binding.pagesTVID
                                                 );
-                                        MyApplication.loadPdfSize
+                            MyApplication.loadPdfSize
                                                 (
                                                         "" + bookUrl,
                                                         "" + bookTitle,
                                                         binding.sizeTVID
                                                 );
 
-                                        // set data
-                                        binding.titleTV3ID.setText(bookTitle);
-                                        binding.descriptionTV2ID.setText(description);
-                                        binding.viewsTVID.setText(viewsCount.replace("null", "N/A"));
-                                        binding.downloadTVID.setText(downloadsCount.replace("null", "N/A"));
-                                        binding.dateTVID.setText(date);
-                                    }
+                            // set data
+                            binding.titleTV3ID.setText(bookTitle);
+                            binding.descriptionTV2ID.setText(description);
+                            binding.viewsTVID.setText(viewsCount.replace("null", "N/A"));
+                            binding.downloadTVID.setText(downloadsCount.replace("null", "N/A"));
+                            binding.dateTVID.setText(date);
+                        }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                }
-                        );
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                        });
     }
 
     private void checkIsFavourite()

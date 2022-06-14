@@ -56,8 +56,7 @@ public class PdfViewActivity extends AppCompatActivity {
 
         // handle clicking "go back" button
         binding.backIBtn6ID.setOnClickListener
-                (
-                        new View.OnClickListener() {
+                (new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 onBackPressed();
@@ -73,86 +72,68 @@ public class PdfViewActivity extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
         reference.child(bookId)
                 .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        // get book url
-                                        String pdfUrl = "" + snapshot.child("url").getValue();
-                                        Log.d(TAG, "onDataChange: PDF URL: " + pdfUrl);
-                                        
-                                        // Step 2: load pdf using its url from firebase storage
-                                        loadBookFromUrl(pdfUrl);
-                                    }
+                        (new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                // get book url
+                                String pdfUrl = "" + snapshot.child("url").getValue();
+                                Log.d(TAG, "onDataChange: PDF URL: " + pdfUrl);
+                                // Step 2: load pdf using its url from firebase storage
+                                loadBookFromUrl(pdfUrl);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                }
-                        );
+                            }
+                        });
     }
 
     private void loadBookFromUrl(String pdfUrl) {
         Log.d(TAG, "loadBookFromUrl: Get PDF from storage.");
         StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
         reference.getBytes(Constants.MAX_BYTES_PDF)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<byte[]>() {
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        // loading pdf using bytes
+                        binding.pdfView2ID.fromBytes(bytes)
+                                // swipe horizontal:
+                                //      true - horizontal
+                                //      false - vertical
+                                .swipeHorizontal(false)
+                                .onPageChange(new OnPageChangeListener() {
                                     @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        // loading pdf using bytes
-                                        binding.pdfView2ID.fromBytes(bytes)
-                                                // swipe horizontal:
-                                                //      true - horizontal
-                                                //      false - vertical
-                                                .swipeHorizontal(false)
-                                                .onPageChange
-                                                        (new OnPageChangeListener() {
-                                                                    @Override
-                                                                    public void onPageChanged(int page, int pageCount) {
-                                                                        // set current and total pages in toolbar subtitle
-                                                                        int currentPage = (page + 1);   // starting from page 0, +1 to move to next page
-                                                                        binding.toolbarSubtitleTVID.setText(currentPage + "/" + pageCount);     // e.g: 3/412
-                                                                        Log.d(TAG, "onPageChanged: " + currentPage + "/" + pageCount);
-                                                                    }
-                                                                }
-                                                        )
-                                                .onError
-                                                        (new OnErrorListener() {
-                                                                    @Override
-                                                                    public void onError(Throwable t) {
-                                                                        Log.d(TAG, "onError: " + t.getMessage());
-                                                                        Toast.makeText(PdfViewActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                        )
-                                                .onPageError
-                                                        (new OnPageErrorListener() {
-                                                                    @Override
-                                                                    public void onPageError(int page, Throwable t) {
-                                                                        Log.d(TAG, "onPageError: " + t.getMessage());
-                                                                        Toast.makeText(PdfViewActivity.this, "Error on page " + page + " " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                        )
-                                                .load();
-
-                                        binding.progressBar2ID.setVisibility(View.GONE);
+                                    public void onPageChanged(int page, int pageCount) {
+                                        // set current and total pages in toolbar subtitle
+                                        int currentPage = (page + 1);   // starting from page 0, +1 to move to next page
+                                        binding.toolbarSubtitleTVID.setText(currentPage + "/" + pageCount);     // e.g: 3/412
+                                        Log.d(TAG, "onPageChanged: " + currentPage + "/" + pageCount);
                                     }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
+                                })
+                                .onError(new OnErrorListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.getMessage());
-                                        // failed to load book
-                                        binding.progressBar2ID.setVisibility(View.GONE);
+                                    public void onError(Throwable t) {
+                                        Log.d(TAG, "onError: " + t.getMessage());
+                                        Toast.makeText(PdfViewActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                        );
+                                })
+                                .onPageError(new OnPageErrorListener() {
+                                    @Override
+                                    public void onPageError(int page, Throwable t) {
+                                        Log.d(TAG, "onPageError: " + t.getMessage());
+                                        Toast.makeText(PdfViewActivity.this, "Error on page " + page + " " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .load();
+                        binding.progressBar2ID.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e.getMessage());
+                        // failed to load book
+                        binding.progressBar2ID.setVisibility(View.GONE);
+                    }
+                });
     }
 }
