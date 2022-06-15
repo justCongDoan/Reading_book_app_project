@@ -117,12 +117,3 @@ public class CategoryAddActivity extends AppCompatActivity {
                         });
     }
 }
-class Test2
-{
-    public int Name;
-    public int Id;
-    public Test2(int name, int id){
-        Name = name;
-        Id = id;
-    }
-}
