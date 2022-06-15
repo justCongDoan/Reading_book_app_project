@@ -32,6 +32,7 @@
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/logo1" />
 
         <TextView
@@ -176,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirmPasswordTil"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/shape_button01"
                 android:fontFamily="@font/nexa_trial_heavy"
                 android:text="REGISTER"

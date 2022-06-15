@@ -54,6 +54,9 @@ public class AddingPdfFileActivity extends AppCompatActivity {
     // TAG for debugging
     private static final String TAG = "ADD_PDF_TAG";
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -333,5 +336,14 @@ public class AddingPdfFileActivity extends AppCompatActivity {
             Log.d(TAG, "onActivityResult: picking pdf cancelled");
             Toast.makeText(this, "picking pdf cancelled", Toast.LENGTH_SHORT).show();
         }
+    }
+}
+class Test1
+{
+    public int Name;
+    public int Id;
+    public Test1(int name, int id){
+        Name = name;
+        Id = id;
     }
 }
