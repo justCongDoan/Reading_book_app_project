@@ -60,7 +60,9 @@ dependencies {
     //implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 
     //glide
-
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.databinding:baseLibrary:3.2.0-alpha11'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     //gif
     implementation "com.airbnb.android:lottie:5.2.0"
