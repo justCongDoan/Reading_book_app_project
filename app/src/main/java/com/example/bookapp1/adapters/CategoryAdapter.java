@@ -81,9 +81,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Holder
                                 builder.setTitle("Delete")
                                         .setMessage("Do you really want to delete this category?")
                                         .setPositiveButton
-                                                (
-                                                        "Yes",
-                                                        new DialogInterface.OnClickListener() {
+                                                ("Yes", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                                 // begin deleting
@@ -93,9 +91,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Holder
                                                         }
                                                 )
                                         .setNegativeButton
-                                                (
-                                                        "No",
-                                                        new DialogInterface.OnClickListener() {
+                                                ("No", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                                 dialogInterface.dismiss();

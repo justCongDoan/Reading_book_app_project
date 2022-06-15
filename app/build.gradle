@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
+    //id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -43,10 +43,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //Check app performance
-    apply plugin: 'com.google.gms.google-services'
+/*    apply plugin: 'com.google.gms.google-services'
     apply plugin: 'com.google.firebase.firebase-perf'
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
-    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-perf'*/
 
     //firebase
     implementation 'com.google.firebase:firebase-analytics:21.0.0'
