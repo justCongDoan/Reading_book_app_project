@@ -18,6 +18,8 @@ import com.example.bookapp1.R;
 import com.example.bookapp1.adapters.FavoritePdfAdapter;
 import com.example.bookapp1.databinding.ActivityProfileBinding;
 import com.example.bookapp1.models.PdfModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +74,9 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
 
         loadUserInfo();
         loadFavoriteBooks();

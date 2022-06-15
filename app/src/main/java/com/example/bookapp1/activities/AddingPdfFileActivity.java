@@ -16,6 +16,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityAddingPdfFileBinding;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ChasingDots;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -72,6 +75,10 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
+
 
         // handle click "go to previous activity" event
         binding.backIBtn2ID.setOnClickListener
@@ -336,14 +343,5 @@ public class AddingPdfFileActivity extends AppCompatActivity {
             Log.d(TAG, "onActivityResult: picking pdf cancelled");
             Toast.makeText(this, "picking pdf cancelled", Toast.LENGTH_SHORT).show();
         }
-    }
-}
-class Test1
-{
-    public int Name;
-    public int Id;
-    public Test1(int name, int id){
-        Name = name;
-        Id = id;
     }
 }
