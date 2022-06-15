@@ -74,7 +74,6 @@ public class DashboardUserActivity extends AppCompatActivity {
                             }
                         }
                 );
-
         // handle click => open profile
         binding.userProfileBtnID1.setOnClickListener
                 (
@@ -103,94 +102,71 @@ public class DashboardUserActivity extends AppCompatActivity {
 
         // load category from firebase
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Categories");
-        reference.addListenerForSingleValueEvent
-                (
-                        new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                // clearing data before adding to the list
-                                categoryModelArrayList.clear();
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clearing data before adding to the list
+                categoryModelArrayList.clear();
+                // Load categories - static e.g: All, Most viewed, Most download
 
-                                // Load categories - static e.g: All, Most viewed, Most download
+                // adding data to the models
+                CategoryModel allCM = new CategoryModel("01", "All", "", 1),
+                        mostViewedCM = new CategoryModel("02", "Most Viewed", "", 1),
+                        mostDownloadedCM = new CategoryModel("03", "Most Downloaded", "", 1);
 
-                                // adding data to the models
-                                CategoryModel allCM = new CategoryModel("01", "All", "", 1),
-                                        mostViewedCM = new CategoryModel("02", "Most Viewed", "", 1),
-                                        mostDownloadedCM = new CategoryModel("03", "Most Downloaded", "", 1);
+                // add models to list
+                categoryModelArrayList.add(allCM);
+                categoryModelArrayList.add(mostViewedCM);
+                categoryModelArrayList.add(mostDownloadedCM);
 
-                                // add models to list
-                                categoryModelArrayList.add(allCM);
-                                categoryModelArrayList.add(mostViewedCM);
-                                categoryModelArrayList.add(mostDownloadedCM);
+                // adding data to the view pager adapter
+                viewPagerAdapter.addFragment
+                        (BookUserFragment.newInstance("" + allCM.getId(),
+                                        "" + allCM.getCategory(),
+                                        "" + allCM.getUid()),
+                                allCM.getCategory());
 
-                                // adding data to the view pager adapter
-                                viewPagerAdapter.addFragment
-                                        (
-                                                BookUserFragment.newInstance
-                                                        (
-                                                                "" + allCM.getId(),
-                                                                "" + allCM.getCategory(),
-                                                                "" + allCM.getUid()
-                                                        ),
-                                                allCM.getCategory()
+                // adding data to the view pager adapter
+                viewPagerAdapter.addFragment
+                        (BookUserFragment.newInstance("" + mostViewedCM.getId(),
+                                        "" + mostViewedCM.getCategory(),
+                                        "" + mostViewedCM.getUid()),
+                                mostViewedCM.getCategory());
+
+                // adding data to the view pager adapter
+                viewPagerAdapter.addFragment
+                        (BookUserFragment.newInstance("" + mostDownloadedCM.getId(),
+                                        "" + mostDownloadedCM.getCategory(),
+                                        "" + mostDownloadedCM.getUid()),
+                                mostDownloadedCM.getCategory()
                                         );
 
-                                // adding data to the view pager adapter
-                                viewPagerAdapter.addFragment
-                                        (
-                                                BookUserFragment.newInstance
-                                                        (
-                                                                "" + mostViewedCM.getId(),
-                                                                "" + mostViewedCM.getCategory(),
-                                                                "" + mostViewedCM.getUid()
-                                                        ),
-                                                mostViewedCM.getCategory()
-                                        );
+                // refreshing list
+                viewPagerAdapter.notifyDataSetChanged();
 
-                                // adding data to the view pager adapter
-                                viewPagerAdapter.addFragment
-                                        (
-                                                BookUserFragment.newInstance
-                                                        (
-                                                                "" + mostDownloadedCM.getId(),
-                                                                "" + mostDownloadedCM.getCategory(),
-                                                                "" + mostDownloadedCM.getUid()
-                                                        ),
-                                                mostDownloadedCM.getCategory()
-                                        );
-
-                                // refreshing list
-                                viewPagerAdapter.notifyDataSetChanged();
-
-                                // Now loading from firebase
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                                {
-                                    // get data
-                                    CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
-                                    // add data to the list
-                                    categoryModelArrayList.add(model);
-                                    // add data to the viewPagerAdapter
-                                    viewPagerAdapter.addFragment
-                                            (
-                                                    BookUserFragment.newInstance
-                                                            (
-                                                                    "" + model.getId(),
-                                                                    "" + model.getCategory(),
-                                                                    "" + model.getUid()
-                                                            )
-                                                    , model.getCategory()
-                                            );
+                // Now loading from firebase
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    // get data
+                    CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
+                    // add data to the list
+                    categoryModelArrayList.add(model);
+                    // add data to the viewPagerAdapter
+                    viewPagerAdapter.addFragment(
+                            BookUserFragment.newInstance
+                                    ("" + model.getId(),
+                                            "" + model.getCategory(),
+                                            "" + model.getUid())
+                                    , model.getCategory());
                                     // refresh list
                                     viewPagerAdapter.notifyDataSetChanged();
-                                }
-                            }
+                }
+            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        }
-                );
+            }
+        });
 
         // set adapter to the view pager
         viewPager.setAdapter(viewPagerAdapter);

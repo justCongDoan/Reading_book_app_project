@@ -104,27 +104,17 @@ public class CategoryAddActivity extends AppCompatActivity {
         reference.child("" + timeStamp)
                 .setValue(hashMap)
                 .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // adding category successfully
-                                        progressDialog.dismiss();
-                                        Toast.makeText(CategoryAddActivity.this, "Category added successfully!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
+                        (unused -> {
+                            // adding category successfully
+                            progressDialog.dismiss();
+                            Toast.makeText(CategoryAddActivity.this, "Category added successfully!", Toast.LENGTH_SHORT).show();
+                        })
                 .addOnFailureListener
-                        (
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // adding category successfully
-                                        progressDialog.dismiss();
-                                        Toast.makeText(CategoryAddActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        );
+                        (e -> {
+                            // adding category successfully
+                            progressDialog.dismiss();
+                            Toast.makeText(CategoryAddActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
     }
 }
 class Test2

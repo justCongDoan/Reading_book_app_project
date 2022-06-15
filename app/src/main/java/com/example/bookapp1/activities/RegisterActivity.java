@@ -167,24 +167,15 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(uid)
                 .setValue(hashMap)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         // data added to the database
                                         progressDialog.dismiss();
-                                        Toast.makeText(RegisterActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(RegisterActivity.this, "Account created successfully!",
+                                                Toast.LENGTH_SHORT).show();
                                         // since user's account is created => start user's dashboard
-                                        startActivity
-                                                (
-                                                        new Intent
-                                                                (
-                                                                        RegisterActivity.this,
-                                                                        DashboardUserActivity.class
-                                                                )
-                                                );
+                                        startActivity(new Intent(RegisterActivity.this, DashboardUserActivity.class));
                                         finish();
                                     }
                                 }
@@ -196,7 +187,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     public void onFailure(Exception e) {
                                         // data failed to add to the database
                                         progressDialog.dismiss();
-                                        Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "" + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
                                     }
                                 }
                         );

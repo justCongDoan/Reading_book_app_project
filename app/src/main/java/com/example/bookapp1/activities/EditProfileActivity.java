@@ -149,36 +149,28 @@ public class EditProfileActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("name", "" + name);
         if (imageUri != null)
-        {
-            hashMap.put("profileImage", "" + imageUrl);
-        }
+        {hashMap.put("profileImage", "" + imageUrl);}
 
         // update data to the database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         databaseReference.child(firebaseAuth.getUid())
                 .updateChildren(hashMap)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d(TAG, "onSuccess: Profile uploaded successfully!");
-                                        progressDialog.dismiss();
-                                        Toast.makeText(EditProfileActivity.this, "Profile uploaded successfully!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
-                .addOnFailureListener
-                        (
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Failed to update database due to " + e.getMessage());
-                                        progressDialog.dismiss();
-                                        Toast.makeText(EditProfileActivity.this, "Failed to update database due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        );
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Profile uploaded successfully!");
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfileActivity.this, "Profile uploaded successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: Failed to update database due to " + e.getMessage());
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfileActivity.this, "Failed to update database due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void uploadImage() {

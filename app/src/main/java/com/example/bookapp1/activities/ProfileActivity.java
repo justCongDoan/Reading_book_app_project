@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // progress dialog
     private ProgressDialog progressDialog;
+
     
     private static final String TAG = "PROFILE_TAG";
 
@@ -81,14 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity
-                                        (
-                                                new Intent
-                                                        (
-                                                                ProfileActivity.this,
-                                                                EditProfileActivity.class
-                                                        )
-                                        );
+                                startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
                             }
                         }
                 );
@@ -233,13 +227,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // get email verification status, after that, user must re-login to get changes
         if (firebaseUser.isEmailVerified())
-        {
-            binding.accountStatusTVID.setText("Verified");
-        }
+        {binding.accountStatusTVID.setText("Verified");}
         else
-        {
-            binding.accountStatusTVID.setText("Not verified");
-        }
+        {binding.accountStatusTVID.setText("Not verified");}
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(firebaseAuth.getUid())

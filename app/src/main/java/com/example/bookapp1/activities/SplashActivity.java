@@ -48,14 +48,7 @@ public class SplashActivity extends AppCompatActivity {
         {
             // user not logged in
             // start main screen
-            startActivity
-                    (
-                            new Intent
-                                    (
-                                            SplashActivity.this,
-                                            MainActivity.class
-                                    )
-                    );
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }
         else
         {
@@ -75,27 +68,13 @@ public class SplashActivity extends AppCompatActivity {
                                             if(userType.equals("user"))
                                             {
                                                 // this is normal user, open user dashboard
-                                                startActivity
-                                                        (
-                                                                new Intent
-                                                                        (
-                                                                                SplashActivity.this,
-                                                                                DashboardUserActivity.class
-                                                                        )
-                                                        );
+                                                startActivity(new Intent(SplashActivity.this, DashboardUserActivity.class));
                                                 finish();
                                             }
                                             else if(userType.equals("admin"))
                                             {
                                                 // this is admin, open admin dashboard
-                                                startActivity
-                                                        (
-                                                                new Intent
-                                                                        (
-                                                                                SplashActivity.this,
-                                                                                DashboardAdminActivity.class
-                                                                        )
-                                                        );
+                                                startActivity(new Intent(SplashActivity.this, DashboardAdminActivity.class));
                                                 finish();
                                             }
                                         }

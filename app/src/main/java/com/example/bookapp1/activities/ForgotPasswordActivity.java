@@ -69,10 +69,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         email = binding.emailET1ID.getText().toString().trim();
 
         // validating data (it mustn't be empty first)
-        if (email.isEmpty())
-        {
-            Toast.makeText(this, "Please enter email.", Toast.LENGTH_SHORT).show();
-        }
+        if (email.isEmpty()) {Toast.makeText(this, "Please enter email.", Toast.LENGTH_SHORT).show();}
         else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
             Toast.makeText(this, "Invalid email format.", Toast.LENGTH_SHORT).show();
@@ -90,17 +87,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // begin sending recovery
         firebaseAuth.sendPasswordResetEmail(email)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // sent
-                                        progressDialog.dismiss();
-                                        Toast.makeText(ForgotPasswordActivity.this, "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // sent
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                        "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
+                    }})
                 .addOnFailureListener
                         (
                                 new OnFailureListener() {
