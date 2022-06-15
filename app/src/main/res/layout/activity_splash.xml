@@ -10,15 +10,15 @@
     tools:context=".activities.SplashActivity">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
         android:transitionName="im"
         android:src="@drawable/logo1"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book App"
+        android:text="BOOK APP "
         android:textSize="24sp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/nexa_trial_heavy"
