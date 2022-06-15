@@ -32,11 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DashboardUserActivity extends AppCompatActivity {
-
-    // progress dialog
-    private ProgressDialog progressDialog;
-
-    // showing tabs
+    // showing book tabs
     public ArrayList<CategoryModel> categoryModelArrayList;
     public ViewPagerAdapter viewPagerAdapter;
 
@@ -54,50 +50,35 @@ public class DashboardUserActivity extends AppCompatActivity {
 
         // initializing firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
+        // check user log in or not
         checkUser();
 
+        //View Page Adapter
         setupViewPagerAdapter(binding.viewPagerID);
         binding.tabLayoutID.setupWithViewPager(binding.viewPagerID);
 
-        // handle "click logout button" event
-        binding.logoutBtnID.setOnClickListener
-                (
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                firebaseAuth.signOut();
-                                startActivity
-                                        (new Intent
-                                                (DashboardUserActivity.this, MainActivity.class)
-                                        );
-                                finish();
-                            }
-                        }
-                );
-        // handle click => open profile
-        binding.userProfileBtnID1.setOnClickListener
-                (
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity
-                                        (new Intent
-                                                (DashboardUserActivity.this, ProfileActivity.class)
-                                        );
-                            }
-                        }
-                );
+        // handle "click logout button" event (return to main activity)
+        binding.logoutBtnID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                startActivity(new Intent(DashboardUserActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        // handle click => open user profile
+        binding.userProfileBtnID1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {startActivity(new Intent(DashboardUserActivity.this
+                    , ProfileActivity.class));}
+        });
     }
 
     private void setupViewPagerAdapter(ViewPager viewPager)
     {
-        viewPagerAdapter = new ViewPagerAdapter
-                (
-                        getSupportFragmentManager(),
-                        FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-                        this
-                );
-
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this);
+        // make arraylist
         categoryModelArrayList = new ArrayList<>();
 
         // load category from firebase
@@ -109,7 +90,7 @@ public class DashboardUserActivity extends AppCompatActivity {
                 categoryModelArrayList.clear();
                 // Load categories - static e.g: All, Most viewed, Most download
 
-                // adding data to the models
+                // Adding data to the models
                 CategoryModel allCM = new CategoryModel("01", "All", "", 1),
                         mostViewedCM = new CategoryModel("02", "Most Viewed", "", 1),
                         mostDownloadedCM = new CategoryModel("03", "Most Downloaded", "", 1);
@@ -172,17 +153,18 @@ public class DashboardUserActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
     }
 
-    public class ViewPagerAdapter extends FragmentPagerAdapter
+    public static class ViewPagerAdapter extends FragmentPagerAdapter
     {
-        private ArrayList<BookUserFragment> fragmentArrayList = new ArrayList<>();
-        private ArrayList<String> fragmentTitleList = new ArrayList<>();
-        private Context context;
+        private final ArrayList<BookUserFragment> fragmentArrayList = new ArrayList<>();
+        private final ArrayList<String> fragmentTitleList = new ArrayList<>();
+        private final Context context;
 
         public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, Context context) {
             super(fm, behavior);
             this.context = context;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragmentArrayList.get(position);
@@ -219,6 +201,7 @@ public class DashboardUserActivity extends AppCompatActivity {
             // not logged in
             binding.subTitleTVID.setText("Not logged in");
 
+            // logged in
             binding.userProfileBtnID1.setVisibility(View.GONE);
         }
         else

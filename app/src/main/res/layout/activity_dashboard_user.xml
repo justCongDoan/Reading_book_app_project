@@ -33,7 +33,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/nexa_trial_black"
-            android:text="Dashboard - User"
+            android:text="Dashboard User"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -82,7 +82,6 @@
         android:id="@+id/viewPager_ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tabLayout_ID"
-        android:layout_marginTop="-12dp" />
+        android:layout_below="@id/tabLayout_ID" />
 
 </RelativeLayout>
