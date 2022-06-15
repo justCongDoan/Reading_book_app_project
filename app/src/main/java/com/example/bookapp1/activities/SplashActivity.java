@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        //Debug firebase
+        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
 
         // initializing firebase auth
         firebaseAuth = FirebaseAuth.getInstance();

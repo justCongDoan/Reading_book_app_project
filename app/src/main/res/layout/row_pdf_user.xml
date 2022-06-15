@@ -94,7 +94,7 @@
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/pdfRL_ID"
             android:maxLines="1"
-            android:text="13 MB" />
+            android:text="0 MB" />
 
         <TextView
             android:id="@+id/dateTV_ID"
