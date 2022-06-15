@@ -51,12 +51,3 @@ public class MainActivity extends AppCompatActivity {
                 );
     }
 }
-class Test
-{
-    public int Name;
-    public int Id;
-    public Test(int name, int id){
-        Name = name;
-        Id = id;
-    }
-}

@@ -338,12 +338,3 @@ public class AddingPdfFileActivity extends AppCompatActivity {
         }
     }
 }
-class Test1
-{
-    public int Name;
-    public int Id;
-    public Test1(int name, int id){
-        Name = name;
-        Id = id;
-    }
-}
