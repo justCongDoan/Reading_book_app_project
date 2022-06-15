@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityCategoryAddBinding;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,9 @@ public class CategoryAddActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Take your time while waiting...");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
 
         // handle "clicking go back button" event
         binding.backIBtn1ID.setOnClickListener
@@ -104,26 +109,16 @@ public class CategoryAddActivity extends AppCompatActivity {
         reference.child("" + timeStamp)
                 .setValue(hashMap)
                 .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // adding category successfully
-                                        progressDialog.dismiss();
-                                        Toast.makeText(CategoryAddActivity.this, "Category added successfully!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
+                        (unused -> {
+                            // adding category successfully
+                            progressDialog.dismiss();
+                            Toast.makeText(CategoryAddActivity.this, "Category added successfully!", Toast.LENGTH_SHORT).show();
+                        })
                 .addOnFailureListener
-                        (
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // adding category successfully
-                                        progressDialog.dismiss();
-                                        Toast.makeText(CategoryAddActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        );
+                        (e -> {
+                            // adding category successfully
+                            progressDialog.dismiss();
+                            Toast.makeText(CategoryAddActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
     }
 }

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityRegisterBinding;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -53,6 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Take your time while waiting...");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
 
         // handle clicking go back button event
         binding.backIBtnID.setOnClickListener
@@ -167,24 +172,15 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(uid)
                 .setValue(hashMap)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         // data added to the database
                                         progressDialog.dismiss();
-                                        Toast.makeText(RegisterActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(RegisterActivity.this, "Account created successfully!",
+                                                Toast.LENGTH_SHORT).show();
                                         // since user's account is created => start user's dashboard
-                                        startActivity
-                                                (
-                                                        new Intent
-                                                                (
-                                                                        RegisterActivity.this,
-                                                                        DashboardUserActivity.class
-                                                                )
-                                                );
+                                        startActivity(new Intent(RegisterActivity.this, DashboardUserActivity.class));
                                         finish();
                                     }
                                 }
@@ -196,7 +192,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     public void onFailure(Exception e) {
                                         // data failed to add to the database
                                         progressDialog.dismiss();
-                                        Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "" + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
                                     }
                                 }
                         );

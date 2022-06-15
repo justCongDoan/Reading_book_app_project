@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setTitle("Take your time while waiting...");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        //Dont have account
+        // don't have account
         String text = "Don't have an account? Sign up!";
         SpannableString ss = new SpannableString(text);
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
@@ -168,51 +168,33 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         // check in the database
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference databaseReference = FirebaseDatabase
+                .getInstance().getReference("Users");
         databaseReference.child(firebaseUser.getUid())
                 .addListenerForSingleValueEvent
-                        (
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        progressDialog.dismiss();
-                                        // get user type
-                                        String userType = "" + dataSnapshot.child("userType").getValue();
+                        (new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                progressDialog.dismiss();
+                                // get user type
+                                String userType = "" + dataSnapshot.child("userType").getValue();
 
-                                        // check user type
-                                        if(userType.equals("user"))
-                                        {
-                                            // this is normal user, open user dashboard
-                                            startActivity
-                                                    (
-                                                            new Intent
-                                                                    (
-                                                                            LoginActivity.this,
-                                                                            DashboardUserActivity.class
-                                                                    )
-                                                    );
-                                            finish();
-                                        }
-                                        else if(userType.equals("admin"))
-                                        {
-                                            // this is admin, open admin dashboard
-                                            startActivity
-                                                    (
-                                                            new Intent
-                                                                    (
-                                                                            LoginActivity.this,
-                                                                            DashboardAdminActivity.class
-                                                                    )
-                                                    );
-                                            finish();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
+                                // check user type
+                                if(userType.equals("user"))
+                                {// this is normal user, open user dashboard
+                                    startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
+                                    finish();
                                 }
-                        );
+                                else if(userType.equals("admin"))
+                                {// this is admin, open admin dashboard
+                                    startActivity(new Intent(LoginActivity.this, DashboardAdminActivity.class));
+                                    finish();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
     }
 }

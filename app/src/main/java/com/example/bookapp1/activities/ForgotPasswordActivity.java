@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookapp1.databinding.ActivityForgotPasswordBinding;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +40,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
 
         // handle click => go back
         binding.backIBtn10ID.setOnClickListener
@@ -69,10 +74,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         email = binding.emailET1ID.getText().toString().trim();
 
         // validating data (it mustn't be empty first)
-        if (email.isEmpty())
-        {
-            Toast.makeText(this, "Please enter email.", Toast.LENGTH_SHORT).show();
-        }
+        if (email.isEmpty()) {Toast.makeText(this, "Please enter email.", Toast.LENGTH_SHORT).show();}
         else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
             Toast.makeText(this, "Invalid email format.", Toast.LENGTH_SHORT).show();
@@ -90,17 +92,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // begin sending recovery
         firebaseAuth.sendPasswordResetEmail(email)
-                .addOnSuccessListener
-                        (
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // sent
-                                        progressDialog.dismiss();
-                                        Toast.makeText(ForgotPasswordActivity.this, "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                        )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // sent
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                        "Instructions to reset password were sent to " + email, Toast.LENGTH_SHORT).show();
+                    }})
                 .addOnFailureListener
                         (
                                 new OnFailureListener() {
@@ -112,5 +111,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     }
                                 }
                         );
+
     }
 }

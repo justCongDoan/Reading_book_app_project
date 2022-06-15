@@ -18,6 +18,8 @@ import com.example.bookapp1.R;
 import com.example.bookapp1.adapters.FavoritePdfAdapter;
 import com.example.bookapp1.databinding.ActivityProfileBinding;
 import com.example.bookapp1.models.PdfModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.RotatingPlane;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,6 +75,9 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        Sprite RotatingPlane = new RotatingPlane();
+        progressDialog.setIndeterminateDrawable(RotatingPlane);
+
         loadUserInfo();
         loadFavoriteBooks();
 
@@ -82,14 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity
-                                        (
-                                                new Intent
-                                                        (
-                                                                ProfileActivity.this,
-                                                                EditProfileActivity.class
-                                                        )
-                                        );
+                                startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
                             }
                         }
                 );
@@ -234,13 +232,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // get email verification status, after that, user must re-login to get changes
         if (firebaseUser.isEmailVerified())
-        {
-            binding.accountStatusTVID.setText("Verified");
-        }
+        {binding.accountStatusTVID.setText("Verified");}
         else
-        {
-            binding.accountStatusTVID.setText("Not verified");
-        }
+        {binding.accountStatusTVID.setText("Not verified");}
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(firebaseAuth.getUid())
