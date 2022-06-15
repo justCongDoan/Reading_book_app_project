@@ -106,5 +106,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     }
                                 }
                         );
+
     }
 }
