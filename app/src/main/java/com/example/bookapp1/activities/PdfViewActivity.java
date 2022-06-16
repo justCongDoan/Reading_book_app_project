@@ -107,7 +107,7 @@ public class PdfViewActivity extends AppCompatActivity {
                                                 // swipe horizontal:
                                                 //      true - horizontal
                                                 //      false - vertical
-                                                .swipeHorizontal(false)
+                                                .swipeHorizontal(true)
                                                 .onPageChange
                                                         (new OnPageChangeListener() {
                                                                     @Override
